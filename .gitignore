@@ -1,0 +1,21 @@
+# toturial folder
+tutorail
+ToolIndex
+
+
+# Python
+*.pyc
+
+
+# wingIDE projFiles
+*.wpr
+*.wpu
+
+
+# pyCharm projectFiles
+.idea
+
+
+
+# windows dataBase
+*.db

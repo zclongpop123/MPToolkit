@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>icons/sun_fill.png</file>
+    <file>icons/sun_stroke.png</file>
+    <file>icons/cloud.png</file>
+    <file>icons/tools.png</file>
+  </qresource>
+</RCC>
