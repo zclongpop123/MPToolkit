@@ -176,5 +176,5 @@ def inspectPivot():
 
 def inpectDefaultName():
     geometrys   = ' '.join(mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list())
-    defaults = dict.fromkeys(re.findall('\S+[a-zA-Z]+\d+(?=\s|$)', geometrys)).keys()
+    defaults = dict.fromkeys([x[0] for x in re.findall('(((?<=\s)|^)[a-zA-Z]+\d+((?=\s)|$))', geometrys)]).keys()
     return defaults
