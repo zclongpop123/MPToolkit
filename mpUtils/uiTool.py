@@ -7,14 +7,20 @@ import sip, re, os.path, sip, scriptTool, maya.OpenMayaUI
 from PyQt4 import QtCore, QtGui, uic
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
+def wrapInstance(widget):
+    if isinstance(widget, basestring):
+        widget = maya.OpenMayaUI.MQtUtil.findWindow(widget)
+    return sip.wrapinstance(long(widget), QtCore.QObject)
+
+
+
 def getMayaWindow():
     '''
     return maya window by Qt object..
     '''
     widget = maya.OpenMayaUI.MQtUtil.mainWindow()
     if widget:
-        return sip.wrapinstance(long(widget), QtCore.QObject)
-
+        return wrapInstance(widget)
 
 
 
@@ -34,13 +40,11 @@ def windowExists(name):
     if not widget:
         return False
 
-    wnd = sip.wrapinstance(long(widget), QtCore.QObject)
+    wnd = wrapInstance(widget)
     wnd.showNormal()
     wnd.activateWindow()
 
     return True
-
-
 
 
 

@@ -20,6 +20,7 @@ class InspectSceneUI(UIwndClass, baseClass):
 
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('inspectSceneWindow'):
+            uiTool.wrapInstance('inspectSceneWindow').__initUI__()
             return
 
         super(InspectSceneUI, self).__init__(parent)
