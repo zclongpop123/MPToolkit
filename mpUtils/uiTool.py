@@ -3,7 +3,7 @@
 #   mail: zclongpop@163.com
 #   date: Thu, 03 Jul 2014 16:35:02
 #=============================================
-import sip, re, os.path, sip, scriptTool, maya.OpenMayaUI
+import sip, re, os.path, scriptTool, maya.OpenMayaUI
 from PyQt4 import QtCore, QtGui, uic
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
