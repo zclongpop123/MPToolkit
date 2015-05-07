@@ -230,11 +230,14 @@ def inspectHierarchyError():
 
 
 def inspectVertex():
-    geometrys = mc.listRelatives(mc.ls(type='mesh'), p=True, path=True) or list()
-
+    geometrys = getGeometrys()
+    pointType = {'nurbsSurface':'cv', 'mesh':'vtx'}
+    
     Results = list()
     for geo in geometrys:
-        vertexValues = scriptTool.openMultiarray(mc.getAttr('%s.vtx[:]'%geo))
+        shpType = mc.nodeType(mc.listRelatives(geo, s=True, path=True)[0])
+
+        vertexValues = scriptTool.openMultiarray(mc.getAttr('%s.%s[:]'%(geo, pointType[shpType])))
 
         if round(sum(vertexValues), 4) == 0:
             continue
