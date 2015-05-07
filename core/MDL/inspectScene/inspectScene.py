@@ -8,10 +8,18 @@ import maya.cmds as mc
 from mpUtils import scriptTool, uiTool
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-OK_ICON      = uiTool.QtGui.QIcon()
-DEFAULT_ICON = uiTool.QtGui.QIcon()
-IMAGE        = uiTool.QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icon', 'check.png'))
-OK_ICON.addPixmap(IMAGE , uiTool.QtGui.QIcon.Disabled, uiTool.QtGui.QIcon.Off)
+ICON_OK       = uiTool.QtGui.QIcon()
+ICON_DEFAULT  = uiTool.QtGui.QIcon()
+ICON_WARNING  = uiTool.QtGui.QIcon()
+
+IMAGE_OK      = uiTool.QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icon', 'check.png'))
+IMAGE_DEFAULT = uiTool.QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icon', 'question.png'))
+IMAGE_WARNING = uiTool.QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icon', 'exclamation.png'))
+
+ICON_OK.addPixmap(IMAGE_OK, uiTool.QtGui.QIcon.Disabled, uiTool.QtGui.QIcon.Off)
+ICON_DEFAULT.addPixmap(IMAGE_DEFAULT, uiTool.QtGui.QIcon.Disabled, uiTool.QtGui.QIcon.Off)
+ICON_WARNING.addPixmap(IMAGE_WARNING, uiTool.QtGui.QIcon.Disabled, uiTool.QtGui.QIcon.Off)
+
 SEARCH_ICON = uiTool.QtGui.QIcon(os.path.join(scriptTool.getScriptPath(), 'icon', 'search.png'))
 
 
@@ -40,7 +48,7 @@ class InspectSceneUI(UIwndClass, baseClass):
         for con in self.groupBox.findChildren(uiTool.QtGui.QPushButton):
             con.setEnabled(False)
             con.setText('')
-            con.setIcon(DEFAULT_ICON)
+            con.setIcon(ICON_DEFAULT)
             con.setStyleSheet('QPushButton{border:none;}')            
 
 
@@ -50,7 +58,7 @@ class InspectSceneUI(UIwndClass, baseClass):
 
         button.setEnabled(True)
         button.setText('Select')
-        button.setIcon(DEFAULT_ICON)
+        button.setIcon(ICON_WARNING)
         button.setStyleSheet('')
 
 
@@ -61,7 +69,7 @@ class InspectSceneUI(UIwndClass, baseClass):
 
         button.setEnabled(False)
         button.setText('')
-        button.setIcon(OK_ICON)
+        button.setIcon(ICON_OK)
         button.setStyleSheet('QPushButton{border:none;}')
 
 
