@@ -148,15 +148,15 @@ def getGeometrys():
 
 def inspectDuplicatesNames():
     transforms = string.join(mc.ls(type='transform'))
-    Duplicatesnames = re.findall('\S+\|+\S+', transforms)
-    return Duplicatesnames
+    Results = re.findall('\S+\|+\S+', transforms)
+    return Results
 
 
 
 def inspectGeometryAttributes():
     geometrys = getGeometrys()
 
-    u_geometrys = []
+    Results = []
     for geo in geometrys:
         Values = []
 
@@ -166,51 +166,51 @@ def inspectGeometryAttributes():
         if sum(Values) == 3 and Values[-3:] == [1, 1, 1]:
             continue
 
-        if geo in u_geometrys:
+        if geo in Results:
             continue
 
-        u_geometrys.append(geo)
+        Results.append(geo)
 
-    return u_geometrys
+    return Results
 
 
 
 def insepectDuplicatesShapes():
     geometrys = getGeometrys()
 
-    u_geometrys = []
+    Results = []
     for geo in geometrys:
         if len(mc.listRelatives(geo, s=True)) <= 1:
             continue
-        if geo in u_geometrys:
+        if geo in Results:
             continue
-        u_geometrys.append(geo)
+        Results.append(geo)
 
-    return u_geometrys
+    return Results
 
 
 
 def inspectPivot():
     geometrys = getGeometrys()
 
-    u_geometrys = []
+    Results = []
     for geo in geometrys:
         pivots = mc.xform(geo, q=True, ws=True, rp=True) + mc.xform(geo, q=True, ws=True, sp=True)
         if round(sum(pivots), 4) == 0:
             continue
-        if geo in u_geometrys:
+        if geo in Results:
             continue
-        u_geometrys.append(geo)
+        Results.append(geo)
 
-    return u_geometrys
+    return Results
 
 
 
 
 def inpectDefaultName():
     geometrys = ' '.join(getGeometrys())
-    defaults = dict.fromkeys([x[0] for x in re.findall('(((?<=\s)|^)[a-zA-Z]+\d+((?=\s)|$))', geometrys)]).keys()
-    return defaults
+    Results = dict.fromkeys([x[0] for x in re.findall('(((?<=\s)|^)[a-zA-Z]+\d+((?=\s)|$))', geometrys)]).keys()
+    return Results
 
 
 
