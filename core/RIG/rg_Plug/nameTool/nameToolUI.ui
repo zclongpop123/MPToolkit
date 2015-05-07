@@ -16,19 +16,20 @@
   <property name="windowTitle">
    <string>Name Tool</string>
   </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
   <property name="styleSheet">
-   <string notr="true">QWidget{
-	color: rgb(189, 189, 142);
-}
-
-
-QAbstractButton:checked, QAbstractButton:hover{
+   <string notr="true">QAbstractButton:checked, QAbstractButton:hover{
 	color: rgb(170, 255, 127);
 }
 
-QGroupBox{
-	border:1px solid rgb(189, 189, 142);
-	border-radius:4px;
+QRadioButton::indicator{
+	border-image: url(:/icon/icon/radio-button_off.png);
+}
+
+QRadioButton::indicator:checked{
+	border-image: url(:/icon/icon/radio-button_on.png);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -106,12 +107,16 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
              <string>Select   Hierarchy</string>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/bug.png</normaloff>:/icon/icon/bug.png</iconset>
             </property>
            </widget>
           </item>
@@ -131,12 +136,16 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
              <string>Load</string>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/upload.png</normaloff>:/icon/icon/upload.png</iconset>
             </property>
            </widget>
           </item>
@@ -196,12 +205,22 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
-             <string>...</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/folder-open.png</normaloff>:/icon/icon/folder-open.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -308,12 +327,22 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
-             <string>|&lt;&lt;</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/player-fastrwd.png</normaloff>:/icon/icon/player-fastrwd.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -333,12 +362,16 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
-             <string>|&lt;</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/player-previous.png</normaloff>:/icon/icon/player-previous.png</iconset>
             </property>
            </widget>
           </item>
@@ -358,12 +391,16 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
-             <string>&gt;|</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/player-next.png</normaloff>:/icon/icon/player-next.png</iconset>
             </property>
            </widget>
           </item>
@@ -377,12 +414,22 @@ QGroupBox{
             </property>
             <property name="font">
              <font>
-              <weight>75</weight>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
-             <string>&gt;&gt;|</string>
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="nameToolAsset.qrc">
+              <normaloff>:/icon/icon/player-fastfwd.png</normaloff>:/icon/icon/player-fastfwd.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -448,12 +495,22 @@ QGroupBox{
            </property>
            <property name="font">
             <font>
-             <weight>75</weight>
-             <bold>true</bold>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
             <string>Refresh</string>
+           </property>
+           <property name="icon">
+            <iconset resource="nameToolAsset.qrc">
+             <normaloff>:/icon/icon/refresh.png</normaloff>:/icon/icon/refresh.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>18</width>
+             <height>18</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -468,12 +525,16 @@ QGroupBox{
            <property name="font">
             <font>
              <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
+             <weight>50</weight>
+             <bold>false</bold>
             </font>
            </property>
            <property name="text">
             <string>Rename</string>
+           </property>
+           <property name="icon">
+            <iconset resource="nameToolAsset.qrc">
+             <normaloff>:/icon/icon/player-play.png</normaloff>:/icon/icon/player-play.png</iconset>
            </property>
           </widget>
          </item>
@@ -490,7 +551,9 @@ QGroupBox{
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="nameToolAsset.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>rdn_pre</sender>

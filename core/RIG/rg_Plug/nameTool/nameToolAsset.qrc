@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>icon/radio-button_off.png</file>
+    <file>icon/radio-button_on.png</file>
+    <file>icon/folder-open.png</file>
+    <file>icon/bug.png</file>
+    <file>icon/player-fastfwd.png</file>
+    <file>icon/player-fastrwd.png</file>
+    <file>icon/player-next.png</file>
+    <file>icon/player-play.png</file>
+    <file>icon/player-previous.png</file>
+    <file>icon/refresh.png</file>
+    <file>icon/upload.png</file>
+  </qresource>
+</RCC>
