@@ -73,8 +73,8 @@ class InspectSceneUI(UIwndClass, baseClass):
         self.NoFreeGeometeys     = inspectGeometryAttributes()
         self.pivotErrorGeometrys = inspectPivot()
         self.DuplicatesShapesOBJ = insepectDuplicatesShapes()
-
-
+        self.vertexErrorOBJ      = inspectVertex()
+        self.hierarchyErrorOBJ   = inspectHierarchyError()
         #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
         def _readResult(OBJList, field, button):
             if len(OBJList) > 0:
@@ -88,6 +88,8 @@ class InspectSceneUI(UIwndClass, baseClass):
         _readResult(self.NoFreeGeometeys,     self.fld_noFreezeGeometeys, self.btn_unFreezeGeometeys)
         _readResult(self.pivotErrorGeometrys, self.fld_pivotError,        self.btn_pivotError)
         _readResult(self.DuplicatesShapesOBJ, self.fld_duplicatesShapes,  self.btn_duplicatesShapes)
+        _readResult(self.vertexErrorOBJ,      self.fld_vertexError,       self.btn_vertexError)
+        _readResult(self.hierarchyErrorOBJ,   self.fld_hierarchyError,    self.btn_hierarchyError)
         #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
@@ -115,6 +117,27 @@ class InspectSceneUI(UIwndClass, baseClass):
         mc.select(self.defaultNameOBJ)
 
 
+    def on_btn_vertexError_clicked(self, args=None):
+        if args == None:return
+        mc.select(self.vertexErrorOBJ)
+
+
+    def on_btn_hierarchyError_clicked(self, args=None):
+        if args == None:return
+        mc.select(self.hierarchyErrorOBJ)
+
+
+
+
+
+
+
+def getGeometrys():
+    geometrys = mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list()
+    return geometrys
+
+
+
 def inspectDuplicatesNames():
     transforms = string.join(mc.ls(type='transform'))
     Duplicatesnames = re.findall('\S+\|+\S+', transforms)
@@ -123,7 +146,7 @@ def inspectDuplicatesNames():
 
 
 def inspectGeometryAttributes():
-    geometrys   = mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list()
+    geometrys = getGeometrys()
 
     u_geometrys = []
     for geo in geometrys:
@@ -145,7 +168,7 @@ def inspectGeometryAttributes():
 
 
 def insepectDuplicatesShapes():
-    geometrys   = mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list()
+    geometrys = getGeometrys()
 
     u_geometrys = []
     for geo in geometrys:
@@ -160,7 +183,7 @@ def insepectDuplicatesShapes():
 
 
 def inspectPivot():
-    geometrys   = mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list()
+    geometrys = getGeometrys()
 
     u_geometrys = []
     for geo in geometrys:
@@ -175,7 +198,42 @@ def inspectPivot():
 
 
 
+
 def inpectDefaultName():
-    geometrys   = ' '.join(mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list())
+    geometrys = ' '.join(getGeometrys())
     defaults = dict.fromkeys([x[0] for x in re.findall('(((?<=\s)|^)[a-zA-Z]+\d+((?=\s)|$))', geometrys)]).keys()
     return defaults
+
+
+
+
+def inspectHierarchyError():
+    geometrys = getGeometrys()
+
+    Results = list()
+    for geo in geometrys:
+        parent = mc.listRelatives(geo, p=True)
+        if not parent and geo not in Results:
+            Results.append(geo)
+
+    return Results
+
+
+
+
+def inspectVertex():
+    geometrys = mc.listRelatives(mc.ls(type='mesh'), p=True, path=True) or list()
+
+    Results = list()
+    for geo in geometrys:
+        vertexValues = scriptTool.openMultiarray(mc.getAttr('%s.vtx[:]'%geo))
+
+        if round(sum(vertexValues), 4) == 0:
+            continue
+
+        if geo in Results:
+            continue
+
+        Results.append(geo)
+
+    return Results
