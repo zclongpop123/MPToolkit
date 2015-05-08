@@ -88,12 +88,12 @@ def mirrorControlShape(typ, source, targent, flipAxis):
 
         #- get original shapes
         originalShapes = mc.listRelatives(targentControl, s=True, path=True, type='nurbsCurve')
-        mc.delete(originalShapes)
-
+        
         #- parent new shapes
         shapes = mc.listRelatives(Temp.name(), s=True, path=True, type='nurbsCurve')
         for shp in shapes:
             mc.setAttr('%s.ovc'%shp, mc.getAttr('%s.ovc'%originalShapes[0]))
+        mc.delete(originalShapes)
         mc.parent(shapes, targentControl, s=True, r=True)
         
         for shp in shapes:
