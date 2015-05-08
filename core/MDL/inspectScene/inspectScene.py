@@ -232,7 +232,7 @@ def inspectHierarchyError():
 def inspectVertex():
     geometrys = getGeometrys()
     pointType = {'nurbsSurface':'cv', 'mesh':'vtx'}
-    
+
     Results = list()
     for geo in geometrys:
         shpType = mc.nodeType(mc.listRelatives(geo, s=True, path=True)[0])
