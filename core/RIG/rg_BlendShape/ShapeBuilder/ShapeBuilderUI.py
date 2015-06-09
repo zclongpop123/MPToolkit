@@ -7,7 +7,6 @@ import os, re
 from PyQt4 import QtCore, QtGui
 import maya.cmds as mc
 import maya.mel as mel
-import rigBuilder.face.faceUI
 import cvShapeInverterCmds
 from mpUtils import uiTool, scriptTool, nameTool, mathTool, mayaTool
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -100,8 +99,6 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
 
     def on_btn_showChannelBox_clicked(self, clicked=None):
         if clicked == None:return
-        if not mc.objExists(str(self.btn_blendShape.text())):return
-        rigBuilder.face.faceUI.createChannelBoxForNode(str(self.btn_blendShape.text()))    
 
     #=====================================================================================================================================
 
