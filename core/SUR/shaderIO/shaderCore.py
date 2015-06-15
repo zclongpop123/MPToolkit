@@ -40,7 +40,7 @@ def getObjectsByShader(shaders=list()):
 
         input_shd = mc.listHistory(shd, pdo=1)[1]
         mc.hyperShade(objects=input_shd)
-        object_data[shd] = mc.ls(sl=True, fl=True)
+        object_data[shd] = mc.ls(sl=True)
 
     return object_data
 
