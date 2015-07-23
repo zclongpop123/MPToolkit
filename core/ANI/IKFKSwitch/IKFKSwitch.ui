@@ -130,7 +130,7 @@
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>refresh</string>
+            <string>Refresh</string>
            </property>
           </widget>
          </item>

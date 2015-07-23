@@ -871,7 +871,7 @@ QPushButton::hover {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_MDL">
      <attribute name="title">
@@ -1099,7 +1099,7 @@ QToolBox::tab:hover, QToolBox::tab:selected{
          <number>1</number>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <property name="tabSpacing">
          <number>2</number>
@@ -1483,8 +1483,8 @@ QToolBox::tab:hover, QToolBox::tab:selected{
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>275</width>
-           <height>131</height>
+           <width>418</width>
+           <height>421</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1812,6 +1812,71 @@ QToolBox::tab:hover, QToolBox::tab:selected{
               </property>
               <property name="text">
                <string>编辑 Blendshape 权重</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_34">
+            <property name="spacing">
+             <number>3</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="RIG_btn_InvertBlendShapeWeights">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>反向 Blendshape 权重</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>

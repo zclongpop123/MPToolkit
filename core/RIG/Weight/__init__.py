@@ -46,3 +46,9 @@ class Mod_Class(object):
         if args==None:return
         import blendShapeWeightsTool.blendShapeWeights
         blendShapeWeightsTool.blendShapeWeights.BlendShapeWeightsUI()
+    
+    
+    def on_RIG_btn_InvertBlendShapeWeights_clicked(self, args=None):
+        if args==None:return
+        import invertBlendShapeWeights.blendShapeWeights
+        invertBlendShapeWeights.blendShapeWeights.BlendShapeWeightUI()
