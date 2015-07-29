@@ -871,7 +871,7 @@ QPushButton::hover {
 }</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab_MDL">
      <attribute name="title">
@@ -1099,7 +1099,7 @@ QToolBox::tab:hover, QToolBox::tab:selected{
          <number>1</number>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <property name="tabSpacing">
          <number>2</number>
