@@ -2,7 +2,7 @@
 # author: changlong.zang
 #   date: 2014-05-05
 #=================================
-import os, re
+import os, re, string
 import maya.cmds as mc
 from mpUtils import uiTool, scriptTool
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -99,9 +99,23 @@ class BuildTargents(WindowClass, BaseClass):
 
 
 def buildTargent(blendShape, targentname, weightID):
-    postions = mc.getAttr('%s.it[0].itg[%s].iti[6000].ipt'%(blendShape, weightID))
-    if postions == None :return
-    points = mc.ls(['%s.%s'%(targentname, pnt)  for pnt in mc.getAttr('%s.it[0].itg[%s].iti[6000].ict'%(blendShape, weightID))], fl=True)
+    attributes = ' '.join(mc.listAttr(blendShape, m=True))
     
-    for pnt, posi in zip(points, postions):
-        mc.move(posi[0], posi[1], posi[2], pnt, r=True)
+    matched_attributes = re.findall('inputTarget\[0\].inputTargetGroup\[%s\].inputTargetItem\[\d{4}\]'%weightID, attributes)    
+    matched_attributes = [x for i, x in enumerate(matched_attributes) if x not in matched_attributes[:i]]
+    
+    for attr in matched_attributes:
+        postions = mc.getAttr('%s.%s.ipt'%(blendShape, attr))
+        if postions == None :continue
+        
+        search_res = re.search('(?<=inputTargetItem\[)\d{4}', attr)
+
+        if search_res.group() == '6000':
+            tar = targentname
+        else:
+            tar = mc.duplicate(targentname, name='%s_%s'%(targentname, search_res.group()))[0]
+
+        points = mc.ls(['%s.%s'%(tar, pnt)  for pnt in mc.getAttr('%s.it[0].itg[%s].iti[6000].ict'%(blendShape, weightID))], fl=True)
+        
+        for pnt, posi in zip(points, postions):
+            mc.move(posi[0], posi[1], posi[2], pnt, r=True)
