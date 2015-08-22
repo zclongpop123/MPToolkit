@@ -16,12 +16,12 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="8,2">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,1">
       <property name="spacing">
        <number>2</number>
       </property>
       <item>
-       <widget class="QLineEdit" name="let_input">
+       <widget class="QLineEdit" name="let_filePath">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -42,7 +42,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_search">
+       <widget class="QPushButton" name="btn_setFilePath">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -61,7 +61,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Search</string>
+         <string>...</string>
         </property>
        </widget>
       </item>

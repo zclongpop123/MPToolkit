@@ -53,32 +53,16 @@ class ReplaceUV(windowClass, baseClass):
         self.show()
 
 
-    def on_btn_search_clicked(self, clicked=None):
+    def on_btn_setFilePath_clicked(self, clicked=None):
         if clicked == None:return
-        assetName = str(self.let_input.text())
-        if assetName == '':
-            return
-        
-        self.asset_data = []
-        model_use_list = []
-        for folder in ASSET_FOLDER:
-            for child in os.listdir(os.path.join(ASSET_PATH, folder)):
-                if not re.match(assetName, child, re.I):
-                    continue
-                
-                tup = (folder, child, 'Model', 'publish', 'maya')
-                f = publishTool.getLastFile(os.path.join(ASSET_PATH, *tup))
-                
-                if not os.path.isfile(f):
-                    continue
-                
-                model_use_list.append('( %s ) - %s'%(folder, os.path.basename(f)))
-                self.asset_data.append(f)
-        
-        self.__listModel.change(model_use_list)
-     
+        filePath = mc.fileDialog2(fm=1, ff='Maya Files (*.ma *.mb);;Maya ASCII (*.ma);;Maya Binary (*.mb);')
 
-    
+        if not filePath:
+            return
+
+        self.let_filePath.setText(filePath[0])
+
+
     
     def on_btn_replace_clicked(self, clicked=None):
         if clicked == None:return
@@ -92,18 +76,9 @@ class ReplaceUV(windowClass, baseClass):
         polyGeometry = dict.fromkeys(polyGeometry).keys()
         
         
-        selectIndexes = self.listView.selectedIndexes()
-        if not selectIndexes:
-            print '# Error # - You must select a model file...',
-            return
-        index = selectIndexes[0].row()
-        modelPath = self.asset_data[index]
+        modelPath = str(self.let_filePath.text())
 
-        
 
-        if not uiTool.warning(message='Model\'s UV will be replaced, and it can not to undo !!!\nContinue ? ?'):
-            return 
-        
         #- refrence
         f = mc.file(modelPath, r=True, namespace='UV')
         
