@@ -383,6 +383,6 @@ def findClosetPointOnMesh(geometry, inPoint=(0, 0, 0)):
 
     inpoint = maya.OpenMaya.MPoint(*inPoint)
     outPoint = maya.OpenMaya.MPoint()
-    mesh.getClosestPoint(inpoint, outPoint, OpenMaya.MSpace.kWorld)
+    mesh.getClosestPoint(inpoint, outPoint, maya.OpenMaya.MSpace.kWorld)
 
     return outPoint.x, outPoint.y, outPoint.z

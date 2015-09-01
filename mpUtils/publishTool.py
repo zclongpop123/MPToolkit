@@ -121,18 +121,6 @@ def publishFile(src, dst):
 
 
 
-def getCharacters():
-    characterPath = rigBuilder.rigEnv.ROOT_CHARACTER_PATH
-    characters = []
-    if not os.path.isdir(characterPath):
-        return characters
-
-    for d in os.listdir(characterPath):
-        os.path.isfile(os.path.join(characterPath, d)) or characters.append(d)
-
-    return characters
-
-
 
 
 def OpenFolder(path):
