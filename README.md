@@ -6,5 +6,5 @@ import sys
 path = 'E:/foley'
 path in sys.path or sys.path.append(path)
 
-import MPToolkit.MPToolkitUI
-MPToolkit.MPToolkitUI.MPToolkitUI()
+import MPToolKit.MPToolkitUI
+MPToolKit.MPToolkitUI.MPToolkitUI()
