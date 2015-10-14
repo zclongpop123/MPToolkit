@@ -27,25 +27,25 @@ class ListModel(QtCore.QAbstractListModel):
         #- file names
         if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole:
             return self.__fileList[index.row()]
-        
+
         #- text color
         if role == QtCore.Qt.ForegroundRole:
             if self.__fileList.count(self.__fileList[index.row()]) > 1:
-                return QtGui.QColor(255,   0,   0)
-            
+                return QtGui.QColor(255, 0, 0)
+
             if self.__fileList[index.row()] != self.__baseList[index.row()]:
                 return QtGui.QColor(255, 170, 127)
-        
+
         #- text Tip
         if role == QtCore.Qt.ToolTipRole:
             return self.__baseList[index.row()]
-            
-            
+
+
     def flags(self, index):
         #- what you can do it
         return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
-    
-    
+
+
     def setData(self, index, value, role):
         #- user seted value
         if role == QtCore.Qt.EditRole:
@@ -63,8 +63,8 @@ class ListModel(QtCore.QAbstractListModel):
         self.__baseList.insert(row, value)
         self.endInsertRows()
 
-    
-    
+
+
     def clear(self):
         '''
         clear model datas for empoty view...
@@ -78,7 +78,7 @@ class ListModel(QtCore.QAbstractListModel):
 
     def getValue(self, row):
         return self.__baseList[row]
-    
+
 
 
     def result(self):
@@ -95,13 +95,13 @@ class NameUI(windowClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('foleyNameToolWindow'):
             return 
-        
+
         super(NameUI, self).__init__(parent)
         self.setupUi(self)
         #----------------------------------------------------
         #- hide control
         self.widget_windows.setVisible(False)
-        
+
         #- setModel
         self.__listModel = ListModel()
         self.listView.setModel(self.__listModel)
@@ -129,11 +129,11 @@ class NameUI(windowClass, baseClass):
         #- select dir
         dirPath = mc.fileDialog2(fm=3, okc="Select")
         if not dirPath:return
-        
+
         #- read first one dir
         dirPath = dirPath[0]
         if not os.path.isdir(dirPath):return
-        
+
         #- setText
         self.LET_path.setText(dirPath)
 
@@ -156,7 +156,7 @@ class NameUI(windowClass, baseClass):
         #- clear List
         self.__listModel.clear()
         objects = mc.ls(sl=True)
-    
+
         #- add Files
         for i, obj in enumerate(objects):
             self.__listModel.insertRow(i, obj)
@@ -172,18 +172,18 @@ class NameUI(windowClass, baseClass):
             #- prefix
             if self.rdn_pre.isChecked():
                 resultText = '%s%s%s'%(orignalText[:self.__textIndex],  searchText, orignalText[self.__textIndex:])
-           
+
             #- defind format
             elif self.rdn_def.isChecked():
                 if not re.search('\*', searchText):
                     continue
                 resultText  = nameTool.SerializationObjectNames(self.__listModel.result()[0], searchText, 1)[i]
-           
+
             #- search replace
             else:
                 replaceText = str(self.LET_inputB.text())
                 resultText  = orignalText.replace(searchText, replaceText)
-            
+
             #- set Model data
             self.__listModel.setData(self.__listModel.index(i, 0), resultText, QtCore.Qt.EditRole)
 
@@ -203,7 +203,7 @@ class NameUI(windowClass, baseClass):
             self.widget_buttonBox.setVisible(False)
             self.lab_Ps.setVisible(False)
             self.LET_inputB.setVisible(True)
-            
+
 
 
     def on_LET_inputA_textChanged(self, text):
@@ -215,7 +215,7 @@ class NameUI(windowClass, baseClass):
 
 
     #=======================================================================================================================================
-    
+
     def on_btn_top_clicked(self, args=None):
         if args == None:return
         self.__textIndex = 0
@@ -229,7 +229,7 @@ class NameUI(windowClass, baseClass):
         self.__setNameData()
 
 
-        
+
     def on_btn_right_clicked(self, args=None):
         if args == None:return
         self.__textIndex = min(max(0, self.__textIndex + 1), self.__textMaxIndex)
@@ -241,8 +241,8 @@ class NameUI(windowClass, baseClass):
         if args == None:return
         self.__textIndex = self.__textMaxIndex
         self.__setNameData()
-    
-    #=======================================================================================================================================      
+
+    #=======================================================================================================================================
 
     def on_btn_refresh_clicked(self, args=None):
         if args == None:return
@@ -251,14 +251,14 @@ class NameUI(windowClass, baseClass):
         if self.rdn_maya.isChecked():
             for i, obj in enumerate(mc.ls(sl=True)):
                 self.__listModel.insertRow(i, '%s'%obj)
-                self.__textMaxIndex = max(self.__textMaxIndex, len(obj))                
+                self.__textMaxIndex = max(self.__textMaxIndex, len(obj))
             return 
 
         dirPath = '%s'%self.LET_path.text()
         if not os.path.isdir(dirPath):return
-        
+
         files = os.listdir(dirPath)
-        
+
         #- add Files
         for i, f in enumerate(files):
             self.__listModel.insertRow(i, '%s'%f)
@@ -277,16 +277,16 @@ class NameUI(windowClass, baseClass):
         #- refresh List
         self.on_btn_refresh_clicked(True)
 
-    
+
     #=======================================================================================================================================
-    
+
     def _windowsRename(self):
         path = '%s'%self.LET_path.text()
         baseNameList, resultNameList = self.__listModel.result()
         for baseName, resultName in zip(baseNameList, resultNameList):
             if baseName == resultName:continue
             os.rename(os.path.join(path, baseName), nameTool.compileWindowsFileName(os.path.join(path, resultName)))
-    
+
 
 
     @mayaTool.undo_decorator
