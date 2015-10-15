@@ -16,7 +16,7 @@ def makePathJoints(basePathCus, UppathCus, JointCounts=5, uValuezerotoone=False)
     def _Attach(pathCus, attactOBJ, uValue, UpperOBJ=None, uValuezerotoone=False):
         CusShape = mc.listRelatives(pathCus, s=True, type='nurbsCurve')
         motionpathNode = mc.createNode('motionPath')
-        
+
         # connect curve and motionpath node..
         mc.connectAttr(CusShape[0] + '.worldSpace[0]', motionpathNode + '.geometryPath')
         # connect motionpath node and object..
@@ -25,8 +25,8 @@ def makePathJoints(basePathCus, UppathCus, JointCounts=5, uValuezerotoone=False)
 
         # set Uvalue..
         mc.setAttr(motionpathNode + '.uValue', uValue)
-        
-        
+
+
         # set offset..
         if uValuezerotoone:
             mc.setAttr(motionpathNode + '.fractionMode', 1)
@@ -42,16 +42,16 @@ def makePathJoints(basePathCus, UppathCus, JointCounts=5, uValuezerotoone=False)
     #--------------------------
     for i in range(JointCounts):
         mc.select(cl=True)
-        
+
         Jnt = mc.joint(p=(0, 0, 0))
         Loc = mc.spaceLocator(p=(0, 0, 0))[0]
         uValue = 0.0
-        
+
         if not uValuezerotoone:
             uValue = i
         else:
             uValue = (float(i) - 0) / (float(JointCounts - 1) - 0) * (1.0 - 0.0) + 0.0
-        
+
         _Attach(UppathCus, Loc, uValue, None, uValuezerotoone)
         _Attach(basePathCus, Jnt, uValue, Loc, uValuezerotoone)
 
@@ -77,7 +77,7 @@ class makeAttachJoints(UIwndClass, baseClass):
             self.BaseCusFLD.setText(SelOBJ[0])
         else:
             print '> > > you must select onlyone curve ! ! !',
-        
+
 
     def on_actionLoadUpCurve_triggered(self, clicked=None):
         if clicked==None:return
@@ -86,22 +86,22 @@ class makeAttachJoints(UIwndClass, baseClass):
             self.UpCusFLD.setText(SelOBJ[0])
         else:
             print '> > > you must select onlyone curve ! ! !',    
-    
-    
+
+
     def on_minmaxRDN_toggled(self, args=None):
         if not args:return
         baseCurve = str(self.BaseCusFLD.text())
         if not mc.objExists(baseCurve):return
         self.CountsFLD.setValue(len(mc.ls('%s.cv[0:%d]'%(baseCurve, self.CountsFLD.maximum()), fl=True)))
-    
-    
+
+
     def on_actionMakeJoints_triggered(self, clicked=None):
         if clicked==None:return
         baseCurve = str(self.BaseCusFLD.text())
         upperCurve = str(self.UpCusFLD.text())
         jointCounts = self.CountsFLD.value()
         zeroToOne = self.zerotooneRDN.isChecked()
-        
+
         # test...
         if len(baseCurve) < 1:return
         if len(upperCurve) < 1:return

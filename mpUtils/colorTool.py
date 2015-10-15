@@ -13,7 +13,7 @@ def hsv_to_rgb(h, s, v):
     (0, 0, 100) -> (255, 255, 255)
     '''
     h, s, v = float(h), float(s), float(v)
-    
+
     h60 = h / 60.0
     h60f = math.floor(h60)
     hi = int(h60f) % 6
@@ -21,11 +21,11 @@ def hsv_to_rgb(h, s, v):
     p = v * (1 - s)
     q = v * (1 - f * s)
     t = v * (1 - (1 - f) * s)
-    
+
     color_dict = {0:(v, t, p), 1:(q, v, p), 2:(p, v, t), 3:(p, q, v), 4:(t, p, v), 5:(v, p, q)}
     r, g, b = color_dict.get(hi, (0, 0, 0))
     r, g, b = int(r * 255), int(g * 255), int(b * 255)
-    
+
     return r, g, b
 
 

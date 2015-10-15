@@ -5,44 +5,44 @@ def makeRotateInfo():
     selJoints = mc.ls(sl=True, type='joint')
     for Jnt in selJoints:
         makeRotateInfoForOneJoint(Jnt)
-        
-        
+
+
 def makeRotateInfoForOneJoint(joint):
     #- create sets
     TempCircle = mc.circle(r=1, ch=False)
     TempLine = mc.curve(d=1, p=((-1, 1, 0), (-1, -1, 0), (1, -1, 0), (1, 1, 0), (-1, 1, 0)))
-    
+
     BaseLoc = mc.spaceLocator(p=(0,0,0), name='%s_RIF_Baseloc'%joint.rsplit('_', 2)[0])[0]
     AimLoc = mc.spaceLocator(p=(0,0,0), name='%s_RIF_aimLoc'%joint.rsplit('_', 2)[0])[0]
-    
+
     grp = mc.group(TempCircle, TempLine, BaseLoc, AimLoc, name='%s_RIF_G'%joint.rsplit('_', 2)[0])
-    
+
     #- set Temp Curve Template
     for temp in (TempCircle, TempLine):
         shape = mc.listRelatives(temp, s=True, path=True)
         mc.setAttr('%s.ove'%shape[0], 1)
         mc.setAttr('%s.ovdt'%shape[0], 1)
-    
+
     #- lock attributes
     for attr in mc.listAttr(BaseLoc, k=True):
         if attr in ('translateX', 'translateY'):
             continue
         mc.setAttr('%s.%s'%(BaseLoc, attr), l=True, k=False)
-    
+
     #- limit Translate
     mc.transformLimits(BaseLoc, tx=(-1, 1), ty=(-1, 1), etx=(True, True), ety=(True, True))
     mc.pointConstraint(AimLoc, BaseLoc, skip='z')
-    
-    
+
+
     #- add Atributes
     for attr in ('x', 'y', 'ypxp', 'ypxn', 'ynxp', 'ynxn', 'up', 'down', 'left', 'right'):
         mc.addAttr(grp, sn=attr, k=True)
-    
+
     #- comp connections
     #- 1
     mc.connectAttr('%s.tx'%BaseLoc, '%s.x'%grp)
     mc.connectAttr('%s.ty'%BaseLoc, '%s.y'%grp)      
-    
+
     #- 2
     Values = ('ypxp', 0.707,0.707), ('ypxn', -0.707,0.707), ('ynxp', 0.707,-0.707), ('ynxn', -0.707,-0.707)
     for Attr, x, y in Values:
@@ -52,7 +52,7 @@ def makeRotateInfoForOneJoint(joint):
         mc.setDrivenKeyframe('%s.i2'%node, cd='%s.ty'%BaseLoc, dv=0, v=0, itt='linear', ott='linear')
         mc.setDrivenKeyframe('%s.i2'%node, cd='%s.ty'%BaseLoc, dv=y, v=1, itt='linear', ott='linear')        
         mc.connectAttr('%s.o'%node, '%s.%s'%(grp, Attr))
-    
+
     #- 3
     # to line 71
 
@@ -85,9 +85,9 @@ def makeRotateInfoForOneJoint(joint):
     '%(BaseLoc, BaseLoc, mc.getAttr('%s.tz'%AimLoc),  grp, 'up', grp, 'down', grp, 'left', grp, 'right')
     mc.expression(s=Expstrings)
     #---------------------------------------------------------------------------------------
-    
-    
-    
+
+
+
     # connect attbutes to prefs_grp
     if not mc.objExists('prefs_grp'):return
     typ = joint.rsplit('_', 2)[0]

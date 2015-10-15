@@ -22,7 +22,7 @@ def compileWindowsFileName(fullPath):
     '''
     if not os.path.isfile(fullPath) and not os.path.isdir(fullPath):
         return fullPath
-    
+
     fname, fextension = os.path.splitext(fullPath)
     res = re.search('\(\d+\)$', fname)
     if res:
@@ -31,7 +31,7 @@ def compileWindowsFileName(fullPath):
     else:
         fname      = '%s(1)'%fname
     fullName = fname + fextension
-    
+
     return compileWindowsFileName(fullName)
 
 
@@ -47,14 +47,14 @@ def compileMayaObjectName(objectName):
     '''
     if not mc.objExists(objectName):
         return objectName
-    
+
     res = re.search('\d+$', objectName)
     if res:
         index = string.zfill(int(res.group()) + 1, len(res.group()))
         result   = re.sub('\d+$', index, objectName)    
     else:
         result   = '%s1'%(objectName)
-    
+
     return compileMayaObjectName(result)
 
 
@@ -68,16 +68,16 @@ def SerializationObjectNames(objectList, nameFormat='Temp*', start=0, padding=3)
     Exp:
             [pCulbe,  pCulbe1, pCulbe2, pCulbe3, pCulbe4] -> temp*
         ->  [temp000, temp001, temp002, temp003, temp004] 
-    
+
             [pCulbe,  pCulbe1, pCulbe2, pCulbe3, pCulbe4] -> C_temp*_geo_0
         ->  [C_temp000_geo_0, C_temp001_geo_0, C_temp002_geo_0, C_temp003_geo_0, C_temp004_geo_0] 
     '''
     if not isinstance(objectList, (list, tuple)):
         return
-    
+
     if nameFormat.count('*') != 1:
         return
-    
+
     newNameList = []
     for i, obj in enumerate(objectList):
         newName = compileMayaObjectName(nameFormat.replace('*', string.zfill(i + start, padding)))
@@ -90,13 +90,13 @@ def SerializationObjectNames(objectList, nameFormat='Temp*', start=0, padding=3)
 def SerializationFileNames(path, nameFormat='Temp*', start=0, padding=3):
     if not os.path.isdir(path):
         return
-    
+
     if nameFormat.count('*') != 1:
         return
-    
+
     #- get files -
     files = os.listdir(path)
-    
+
     for i, f in enumerate(files):
         #- build name
         fextension = os.path.splitext(f)[-1]
@@ -174,7 +174,7 @@ def subDescription(nameString, description):
 
     splitName = nameString.split('_')
     return '%s_%s_%s_%s' % (splitName[POSITION_INDEX], description,
-        splitName[NODETYPE_INDEX], splitName[INDEX_INDEX])
+                            splitName[NODETYPE_INDEX], splitName[INDEX_INDEX])
 
 
 
@@ -194,7 +194,7 @@ def addDescription(nameString, description):
 
 
 
-   
+
 def subNodeType(nameString, nodeType):
     if not checkValidNameString(nameString):
         return nameString
@@ -205,7 +205,7 @@ def subNodeType(nameString, nodeType):
 
     splitName = nameString.split('_')
     return '%s_%s_%s_%s' % (splitName[POSITION_INDEX], splitName[DESCRIPTION_INDEX],
-        nodeType, splitName[INDEX_INDEX])
+                            nodeType, splitName[INDEX_INDEX])
 
 
 
@@ -259,7 +259,7 @@ def checkValidNameString(nameString):
 
 
 
-  
+
 def checkValidPosition(position):
     #    check type
     if not isinstance(position, basestring):
@@ -353,7 +353,7 @@ def camelCaseToList(inputString, titleCase=True):
 
 
 
-   
+
 def camelCaseToNiceString(inputString):
     return listToNiceString(camelCaseToList(inputString))
 
@@ -376,8 +376,8 @@ def listToNiceString(inputList):
 
     return result
 
- 
- 
+
+
 
 def niceNameToCamelCase(inputString, leadingCapital=False):
     result = str()

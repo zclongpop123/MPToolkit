@@ -21,13 +21,13 @@ class ListModel(QtCore.QAbstractListModel):
     def data(self, index, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole:
             return self.LIST_DATA[index.row()]
-    
-    
+
+
     def changeData(self, inputData):
         self.beginRemoveRows(QtCore.QModelIndex(), 0, self.rowCount())
         del self.LIST_DATA[:]
         self.endRemoveRows()
-        
+
         self.beginInsertRows(QtCore.QModelIndex(), 0, self.rowCount())
         self.LIST_DATA = inputData
         self.endInsertRows()
@@ -38,20 +38,20 @@ windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 
 class WeightsTool(windowClass, baseClass):
     SOURCE_DEFORM_TYPE = 'cluster'
     TARGET_DEFORM_TYPE = 'cluster'
-    
+
     def __init__(self, parent=uiTool.getMayaWindow()):
         super(WeightsTool, self).__init__(parent)
         self.setupUi(self)
         self.show()
-        
+
         self.SOURCE_MODEL = ListModel()
         self.TARGET_MODEL = ListModel()
         self.VIW_Source.setModel(self.SOURCE_MODEL)
         self.VIW_Target.setModel(self.TARGET_MODEL)
-        
+
         self.LayoutComps = {'SOURCE_DEFORM_TYPE':(self.SOURCE_MODEL, self.LET_Source), 
                             'TARGET_DEFORM_TYPE':(self.TARGET_MODEL, self.LET_Target)}
-    
+
     def __setattr__(self, name, value):
         self.__dict__[name] = value
         if not hasattr(self, 'LayoutComps'):
@@ -59,11 +59,11 @@ class WeightsTool(windowClass, baseClass):
         if not name in self.LayoutComps.keys():
             return
         self.LayoutComps[name][0].changeData(getDeformers(str(self.LayoutComps[name][1].text()), value))
-  
-  
+
+
     def on_LET_Source_textChanged(self, text):
         self.SOURCE_GEOMETRY = str(text)
-    
+
     def on_LET_Target_textChanged(self, text):
         self.TARGET_GEOMETRY = str(text)    
 
@@ -82,7 +82,7 @@ class WeightsTool(windowClass, baseClass):
     def on_btn_Import_clicked(self, args=None):
         if args==None:return
         importWeights()
-  
+
     def on_actionLoadSource_triggered(self, args=None):
         if args==None:return
         self.LET_Source.setText(getSelected())
@@ -90,7 +90,7 @@ class WeightsTool(windowClass, baseClass):
     def on_actionLoadTargent_triggered(self, args=None):
         if args==None:return
         self.LET_Target.setText(getSelected())
-    
+
     def on_actionSourceSwitchToCluster_triggered(self, args=None):
         if args==None:return
         self.SOURCE_DEFORM_TYPE = 'cluster'
@@ -98,7 +98,7 @@ class WeightsTool(windowClass, baseClass):
     def on_actionSourceSwitchToBlendShape_triggered(self, args=None):
         if args==None:return
         self.SOURCE_DEFORM_TYPE = 'blendShape'
-    
+
     def on_actionSourceSwitchToSkinCluster_triggered(self, args=None):
         if args==None:return
         self.SOURCE_DEFORM_TYPE = 'skinCluster'        
@@ -132,13 +132,13 @@ def getDeformers(geometry, deformerType):
         return []
     deformers = mayaTool.findDeformer(geometry)
     deformers = [dfm for dfm in deformers if mc.nodeType(dfm) == deformerType]
-    
+
     if len(deformers) == 0:
         return []
-    
+
     if deformerType == 'cluster':
         return deformers
-    
+
     elif deformerType == 'blendShape':
         attributes = []
         for bsp in deformers:
@@ -146,10 +146,10 @@ def getDeformers(geometry, deformerType):
             for attr in mayaTool.getBlendShapeAttributes(bsp):
                 attributes.append('%s.%s'%(bsp, attr))
         return attributes
-    
+
     elif deformerType == 'skinCluster':
         return mc.skinCluster(deformers[0], q=True, inf=True)
-    
+
     else:
         return []
 
@@ -158,13 +158,13 @@ def getGeometryPointsCount(geometry):
     shapes = mc.listRelatives(geometry, s=True, path=True)
     if not shapes:
         return 0
-    
+
     if mc.nodeType(shapes[0]) == 'mesh':
         return len(mc.ls('%s.vtx[:]'%geometry, fl=True))
-    
+
     elif mc.nodeType(shapes[0]) in ('nurbsSurface', 'nurbsCurve'):
         return len(mc.ls('%s.cv[:]'%geometry, fl=True))
-    
+
     else:
         return 0
 
@@ -176,19 +176,19 @@ def getWeights(geometry, args):
         return weights
     if not mc.objExists(args):
         return weights
-    
+
     if mc.nodeType(args) == 'cluster':
         weights = getClusterWeights(geometry, args)
-    
+
     elif mc.nodeType(args) == 'blendShape':
         weights = getBlendShapeWeights(geometry, args)
-    
+
     elif mc.nodeType(args) == 'joint':
         weights = getSkinClusterWeights(geometry, args)
-    
+
     else:
         pass
-    
+
     return weights
 
 
@@ -205,10 +205,10 @@ def getClusterWeights(geometry, args):
 def getBlendShapeWeights(geometry, args):
     vtxCounts = getGeometryPointsCount(geometry)
     bsp, attr = args.split('.')
-    
+
     if re.search('\.envelope$', args):
         weights = mc.getAttr('%s.it[0].bw[:%d]'%(bsp, vtxCounts-1))
-    
+
     else:
         attrIndex = mayaTool.getBlendShapeAttributes(bsp).index(attr)
         weights = mc.getAttr('%s.it[0].itg[%d].tw[:%d]'%(bsp, attrIndex, vtxCounts-1))
@@ -231,19 +231,19 @@ def setWeights(geometry, args, weights):
         return
     if not mc.objExists(args):
         return
-    
+
     if mc.nodeType(args) == 'cluster':
         setClusterWeights(geometry, args, weights)
-    
+
     elif mc.nodeType(args) == 'blendShape':
         setBlendShapeWeights(geometry, args, weights)
-    
+
     elif mc.nodeType(args) == 'joint':
         setSkinClusterWeights(geometry, args, weights)
-    
+
     else:
         pass
-    
+
 
 
 def setClusterWeights(geometry, args, weights):
@@ -280,7 +280,7 @@ def exportWeights(geometry, deformerType, args):
     if not path:
         return
     path = path[0]
-    
+
     weights = {'geometry':geometry, 'type':deformerType, 'deformers':args}
     for arg in args:
         weights.setdefault('weights', list()).append(getWeights(geometry, arg))
@@ -292,7 +292,7 @@ def importWeights():
     if not path:
         return
     path = path[0]
-    
+
     data = ioTool.readData(path)
     for deformer, weights in zip(data['deformers'], data['weights']):
         setWeights(data['geometry'], deformer, weights)

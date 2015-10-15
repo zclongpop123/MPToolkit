@@ -17,7 +17,7 @@ class AddGroup(windowClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('addGroupWindow'):
             return 
-        
+
         super(AddGroup, self).__init__(parent)
         self.setupUi(self)
         self.show()
@@ -44,12 +44,12 @@ class AddGroup(windowClass, baseClass):
 
     def on_btn_add_clicked(self, args=None):
         if args == None:return
-        
+
         search = str(self.let_Search.text())
         selObj = mc.ls(sl=True)
         nameLabels = [str(x.text()) for x in self.scrollArea.findChildren(QtGui.QLineEdit)]
         nameLabels.reverse()
-        
+
         for obj in selObj:
             for replace in nameLabels:
                 if obj.strip() == '':continue
@@ -61,7 +61,7 @@ class AddGroup(windowClass, baseClass):
 def addGroup(obj, search, replace):
     transform = pymel.core.createNode('transform', n=obj.replace(search, replace))
     mc.delete(mc.parentConstraint(obj, transform.name()))
-    
+
     objParent = mc.listRelatives(obj, p=True, path=True)
     if objParent:
         mc.parent(transform.name(), objParent)

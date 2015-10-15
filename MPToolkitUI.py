@@ -24,7 +24,7 @@ class MPToolkitUI(windowClass, baseClass, MDL.Mdl_Class, SUR.Sur_Class, RIG.Rig_
     def __initUI(self):
         #- hide tabwidget tabbar...
         self.tabWidget.tabBar().setVisible(False)
-        
+
         #- connect all of radiobuttons...
         self.__buttonGroup = uiTool.QtGui.QButtonGroup()
         for i, rdn in enumerate(self.wgt_rdnbox.findChildren(uiTool.QtGui.QRadioButton)):

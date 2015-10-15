@@ -15,16 +15,16 @@ class ClusterWeightsUI(baseClass, windowClass):
         super(ClusterWeightsUI, self).__init__(parent)
         self.setupUi(self)
         self.show()
-        
-        
+
+
     def on_btn_Geometry_clicked(self, args=None):
         if args == None:return
         sel = mc.ls(sl=True)
         if len(sel) < 1:return
         if not mc.listRelatives(sel[0], s=True, type='mesh'):return
         self.let_Geometry.setText(sel[0])
-    
-    
+
+
     def on_btn_Source_clicked(self, args=None):
         if args == None:return
         sel = mc.ls(sl=True)
@@ -35,8 +35,8 @@ class ClusterWeightsUI(baseClass, windowClass):
             self.let_Source.setText(mc.listConnections(sel[0])[0])
         else:
             return
-    
-    
+
+
     def on_btn_Targent_clicked(self, args=None):
         if args == None:return
         sel = mc.ls(sl=True)
@@ -47,35 +47,35 @@ class ClusterWeightsUI(baseClass, windowClass):
             self.let_Targent.setText(mc.listConnections(sel[0])[0])
         else:
             return
-    
+
     def on_btn_Mirror_clicked(self, args=None):
         if args == None:return
         geo = str(self.let_Geometry.text())
         src = str(self.let_Source.text())
         dst = str(self.let_Targent.text())
-        
+
         if not mc.objExists(geo):
             return
         if not mc.objExists(src):
             return
         if not mc.objExists(dst):
             return
-        
+
         infoNode = mc.createNode('closestPointOnMesh')
         shape = mc.listRelatives(geo, s=True, path=True, type='mesh')[0]
         mc.connectAttr('%s.outMesh'%shape, '%s.inMesh'%infoNode)
-        
+
         srcWeightListIndex = mc.listRelatives(mc.cluster(src, q=True, g=True), p=True, path=True).index(geo)
         dstWeightListIndex = mc.listRelatives(mc.cluster(dst, q=True, g=True), p=True, path=True).index(geo)
-        
+
         vtxCounts = len(mc.ls('%s.vtx[*]'%geo, fl=True))
         srcValues = mc.getAttr('%s.wl[%d].w[:%d]'%(src, srcWeightListIndex, vtxCounts-1))
         dstValues = []
-        
+
         self.progressBar.setMaximum(vtxCounts)
         for i, vtx in enumerate(mc.ls('%s.vtx[*]'%geo, fl=True)):
             postions = mc.xform(vtx, q=True, ws=True, t=True)
-        
+
             mc.setAttr('%s.ipx'%infoNode, postions[0] * -1)
             mc.setAttr('%s.ipy'%infoNode, postions[1] *  1)
             mc.setAttr('%s.ipz'%infoNode, postions[2] *  1)

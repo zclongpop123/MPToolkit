@@ -47,7 +47,7 @@ def delUVTransferAttributesNode(obj):
 
                 if cmds.delete(cmds.listRelatives(mesh, p=True, f=True)):
                     pass
-                
+
                 n = True
                 while n:
                     inputNode = cmds.listConnections((SH[0] + '.inMesh'), d=False, sh=True)

@@ -13,10 +13,10 @@ def readData(filePath, log=True):
     '''
     if not os.path.isfile(filePath):
         return dict()
-    
+
     if log:
         sys.stdout.write('\nReading file : %s'%filePath)
-    
+
     f = open(filePath, 'r')
     data = json.load(f)
     f.close()
@@ -33,9 +33,9 @@ def writeData(filePath, data, log=True):
     temp = tempfile.mktemp('.json')
     if log:
         sys.stdout.write('\nWriting file : %s'%filePath)
-    
+
     f = open(temp, 'w')
     json.dump(data, f, indent=4)
     f.close()
-    
+
     publishTool.publishFile(temp, filePath)

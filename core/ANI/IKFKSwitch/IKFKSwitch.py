@@ -70,17 +70,17 @@ class IKFKSwitch(Uiwnd, UiClass):
 
         else:
             args = (('_armArmIK_ctlaim_0', '_armArmIK_ctl_0'),)
-        
+
             for src, dst in args:
                 ps = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, t=True)
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
-        
+
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)            
-            
+
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_armUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_armLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_armwrist_bnd_0'))
             mc.xform('%s:%s%s'%(namespace, side, '_armArmPole_ctl_0'), ws=True, t=pole_ps)
-            
+
             mc.setAttr('%s:%s_armIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)
 
 
@@ -100,7 +100,7 @@ class IKFKSwitch(Uiwnd, UiClass):
 
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
-                
+
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_armUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_armLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_armwrist_bnd_0'))
             mc.xform('%s:%s%s'%(namespace, side, '_armArmPole_ctl_0'), ws=True, t=pole_ps)
 
@@ -108,14 +108,14 @@ class IKFKSwitch(Uiwnd, UiClass):
 
         else:
             args = (('_armArmIK_ctlaim_0', '_armArmIK_ctl_0'),)
-        
+
             for src, dst in args:
                 ps = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, t=True)
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
-        
+
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
-                
+
             mc.setAttr('%s:%s_armIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)
 
 
@@ -143,17 +143,17 @@ class IKFKSwitch(Uiwnd, UiClass):
 
         else:
             args = (('_legLegIK_ctlaim_0', '_legLegIK_ctl_0'),)
-        
+
             for src, dst in args:
                 ps = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, t=True)
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
-        
+
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)      
-            
+
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_legUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legankle_bnd_0'))
             mc.xform('%s:%s%s'%(namespace, side, '_legLegPole_ctl_0'), ws=True, t=pole_ps)       
-            
+
             mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)     
 
 
@@ -175,7 +175,7 @@ class IKFKSwitch(Uiwnd, UiClass):
 
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
-            
+
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_legUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legankle_bnd_0'))
             mc.xform('%s:%s%s'%(namespace, side, '_legLegPole_ctl_0'), ws=True, t=pole_ps)            
 
@@ -183,14 +183,14 @@ class IKFKSwitch(Uiwnd, UiClass):
 
         else:
             args = (('_legLegIK_ctlaim_0', '_legLegIK_ctl_0'),)
-        
+
             for src, dst in args:
                 ps = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, t=True)
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
-        
+
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)      
-                
+
             mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)     
 
 

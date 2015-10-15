@@ -15,7 +15,7 @@ class ContextMenu(QtGui.QMenu):
     def __init__(self, Point, btn, parent=None):
         super(ContextMenu, self).__init__(parent)
         self.Button = btn
-        
+
         action_addControl = self.addAction('Add Controls')
         self.addSeparator()
         action_removeControl = self.addAction('Remove Controls')
@@ -31,15 +31,15 @@ class ContextMenu(QtGui.QMenu):
         #- get select controls
         selectControl = mc.ls(sl=True)
         selectControl = [x.split(':')[-1] for x in selectControl]
-        
+
         #- read Data
         f = open(os.path.join(getScriptPath(), 'ControlNameData.json'), 'r')
         controlDT = json.load(f)
         f.close()
-        
+
         #- set Data
         controlDT.setdefault(self.Button, []).extend(selectControl)
-        
+
         #- save Data
         f = open(os.path.join(getScriptPath(), 'ControlNameData.json'), 'w')
         json.dump(controlDT, f, indent=4)
@@ -50,17 +50,17 @@ class ContextMenu(QtGui.QMenu):
         #- get select controls
         selectControl = mc.ls(sl=True)
         selectControl = [x.split(':')[-1] for x in selectControl]
-        
+
         #- read Data
         f = open(os.path.join(getScriptPath(), 'ControlNameData.json'), 'r')
         controlDT = json.load(f)
         f.close()
-        
+
         #- set Data
         for ctl in selectControl:
             if ctl in controlDT.get(self.Button, []):
                 controlDT.get(self.Button, []).remove(ctl)
-        
+
         #- save Data
         f = open(os.path.join(getScriptPath(), 'ControlNameData.json'), 'w')
         json.dump(controlDT, f, indent=4)
@@ -78,17 +78,17 @@ class ControlSelecterWnd(windowClass, baseClass):
         super(ControlSelecterWnd, self).__init__(parent)
         self.setupUi(self)
         self.show()
-        
+
         #- connect Signal
         for btn in self.groupBox.findChildren(QtGui.QPushButton):
             btn.clicked.connect(self.SelectControl)
 
         for btn in self.groupBox_2.findChildren(QtGui.QPushButton):
             btn.clicked.connect(self.SelectControl)    
-        
+
         #- refresh characters
         self.on_btn_loadCharacters_clicked(True)
-        
+
         #- read control name Data
         f = open(os.path.join(scriptTool.getScriptPath(), 'ControlNameData.json'), 'r')
         self.CONTROL_NAME_DATA = json.load(f)
@@ -100,8 +100,8 @@ class ControlSelecterWnd(windowClass, baseClass):
         if Event.key() == QtCore.Qt.Key_Shift:
             self.selectAdd = True
 
-    
-    
+
+
     def keyReleaseEvent(self, Event):
         if Event.key() == QtCore.Qt.Key_Shift:
             self.selectAdd = False
@@ -122,14 +122,14 @@ class ControlSelecterWnd(windowClass, baseClass):
         if args==None:return
         #- clear character list
         self.cbx_CharacterList.clear()
-        
+
         #- add characters
         for f in mc.file(q=True, r=True):
             if not re.search('\Wcharacter\W', f): continue
             self.cbx_CharacterList.addItem(mc.file(f, q=True, ns=True))
-    
-    
-    
+
+
+
     #def on_cbx_CharacterList_currentIndexChanged(self, index):
         #if isinstance(index, int):return
         #all_sets = ' '.join(mc.ls(type='objectSet'))
@@ -140,21 +140,21 @@ class ControlSelecterWnd(windowClass, baseClass):
         #else:
             #self.SetsButtonBox.setEnabled(False)
 
-        
+
     def SelectControl(self):
         btn = self.sender() # get clicked button
-        
+
         #- get last clicked
         if hasattr(self, 'CLECKED_BUTTON'):
             self.CLECKED_BUTTON.setChecked(False)
-        
+
         #- set last clicked
         self.CLECKED_BUTTON = btn
         btn.setChecked(True)
-        
+
         # current character
         nameSpace = str(self.cbx_CharacterList.currentText())  
-        
+
         # add namespace to character
         controls = self.CONTROL_NAME_DATA.get(str(btn.objectName()), [])
         if nameSpace != '':
@@ -176,9 +176,9 @@ class ControlSelecterWnd(windowClass, baseClass):
             else:
                 RealControls.append(ctr)
         controls = RealControls[:]
-        
+
         if len(controls) < 1:return
-        
+
         # select control
         mc.select(controls, add=self.selectAdd)
 
@@ -188,7 +188,7 @@ class ControlSelecterWnd(windowClass, baseClass):
         members = []
         all_sets = ' '.join(mc.ls(type='objectSet'))
         nameSpace = str(self.cbx_CharacterList.currentText())
-        
+
         sets = re.search('%s\S+%s'%(nameSpace, setName), all_sets)
         if not sets:
             sets = re.search('%s'%setName, all_sets)
@@ -202,8 +202,8 @@ class ControlSelecterWnd(windowClass, baseClass):
     def on_btn_SelectAll_clicked(self, args=None):
         if args == None:return
         mc.select(self.getMembers('Allctrls')) #-  Binky:Allctrls
-       
-    
+
+
     @mayaTool.undo_decorator
     def on_btn_SelectBodyAll_clicked(self, args=None):
         if args == None:return
@@ -214,7 +214,7 @@ class ControlSelecterWnd(windowClass, baseClass):
         if args == None:return
         mc.select(self.getMembers('facial_Ctrls')) #-  Binky:facial_Ctrls
 
-    
+
     @mayaTool.undo_decorator
     def on_btn_TposeAllNew_clicked(self, args=None):
         if args == None:return
@@ -222,8 +222,8 @@ class ControlSelecterWnd(windowClass, baseClass):
             if re.search('C_main[AB]_ctl_0$', control):
                 continue
             Set(control)
-    
-    
+
+
     @mayaTool.undo_decorator
     def on_btn_TposeBodyNew_clicked(self, args=None):
         if args == None:return
@@ -231,8 +231,8 @@ class ControlSelecterWnd(windowClass, baseClass):
             if re.search('C_main[AB]_ctl_0$', control):
                 continue
             Set(control)        
-        
-        
+
+
     @mayaTool.undo_decorator
     def on_btn_TposeFaceNew_clicked(self, args=None):
         if args == None:return
@@ -259,7 +259,7 @@ class ControlSelecterWnd(windowClass, baseClass):
 
 #=====================================================================================
 CONTROL_TYPE = ('_ctl_', '_ctr_')
-        
+
 TRANS_ATTRIBUTES  = ('translateX', 'translateY', 'translateZ', 'rotateX', 'rotateY', 'rotateZ')
 SCACLE_AAARIBUTES = ('scaleX', 'scaleY', 'scaleZ', 'visibility')
 TPOSE_DATA = {'Global': 0,
@@ -288,19 +288,19 @@ def Set(control):
             defV = mc.addAttr(attributeFull, q=True, dv=True)  or 0
             minV = mc.addAttr(attributeFull, q=True, min=True) or defV
             maxV = mc.addAttr(attributeFull, q=True, max=True) or defV
-            
+
 
             defaultValue = min(max(minV, defV), maxV)
-        
+
         #- set attribute
         if mc.getAttr(attributeFull, se=True):
             mc.setAttr(attributeFull, defaultValue)
-        
+
             pattern = '(%s)$'%'|'.join(TPOSE_DATA.keys())
             res = re.search(pattern, attributeFull)
             if not res:continue
             mc.setAttr(attributeFull, TPOSE_DATA.get(res.group(), 0))
-            
+
 
 #----------------------------------------------------------------------------------------------------------
 def backtoTpose():
@@ -311,17 +311,17 @@ def backtoTpose():
 
     #- list all of transforms 
     transforms = ' '.join(mc.ls(type='transform'))
-    
+
     #- list all of the controls
     controls   = re.findall('(\S+(%s)\S+)'%'|'.join(CONTROL_TYPE), transforms)
 
     #- remove duplicates
     controls   = [x[0] for x in controls]
-    
+
     #- do it
     for control in controls:
         if re.search('C_main[AB]_ctl_0$', control):
             continue
-        
+
         if selectControl[0].rsplit(':', 1)[0] == control.rsplit(':', 1)[0]:
             Set(control)

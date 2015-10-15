@@ -12,18 +12,18 @@ BUTTON_COLOR_RGB_VALUE = (( 68, 68, 68),(  0,  0,  0),( 64, 64, 64),(128,128,128
 
 class ColorWindow(PyQt4.QtGui.QMainWindow):
     windowName = 'DragonDreamsControlColorToolWindow'
-    
+
     def __init__(self, parent=mpUtils.uiTool.getMayaWindow()):
         if mpUtils.uiTool.windowExists(self.windowName):
             return
-        
+
         #- setup window
         super(ColorWindow, self).__init__(parent)
         self.setObjectName(self.windowName)
         self.setWindowTitle('Control Color Tool')
         self.setMaximumSize (482, 62)
         self.setMinimumSize (482, 62)
-        
+
         #- add buttons
         for i in range(32):
             btn = PyQt4.QtGui.QPushButton(self)
@@ -32,18 +32,18 @@ class ColorWindow(PyQt4.QtGui.QMainWindow):
             sx = 30
             sy = 30
             btn.setGeometry(px, py, sx, sy)
-            
+
             btn.clicked.connect(functools.partial(self.setColor, i))
             btn.setStyleSheet('background-color: rgb(%d, %d, %d);'%BUTTON_COLOR_RGB_VALUE[i])
-            
+
         self.show()
 
-    
+
     def setColor(self, colorIndex):
         selectObjects = maya.cmds.ls(sl=True)
         if len(selectObjects) == 0:
             return
-            
+
         for shp in maya.cmds.listRelatives(selectObjects, s=True, path=True) or []:
             if colorIndex == 0:
                 maya.cmds.setAttr(shp + '.ove', 0) 

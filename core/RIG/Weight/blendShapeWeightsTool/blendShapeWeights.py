@@ -12,15 +12,15 @@ class ListModel(QtCore.QAbstractListModel):
     def __init__(self, parent=None):
         super(ListModel, self).__init__(parent)
         self.__data = []
-    
+
     def rowCount(self, index):
         return len(self.__data)
-    
-    
+
+
     def data(self, index, role):
         if role == QtCore.Qt.DisplayRole:
             return self.__data[index.row()]
-    
+
     def changeData(self, L):
         self.beginRemoveRows(QtCore.QModelIndex(), 0, len(self.__data))
         self.__data = L
@@ -32,7 +32,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('blendShapeWeightsToolUI'):
             return 
-        
+
         super(BlendShapeWeightsUI, self).__init__(parent)
         self.setupUi(self)
         self.show()
@@ -75,11 +75,11 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
         bspNode       = str(self.LET_bsp.text())
         influcenIndex = self.VIEW_skin.selectedIndexes()[0].row()
         bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row()
-        
+
         skinGeo = mc.skinCluster(skinNode, q=True, g=True)[0]
         if mc.nodeType(skinGeo) != 'mesh':
             return
-        
+
         VtxCounts = mc.polyEvaluate(skinGeo, v=True)
         self.progressBar.setMaximum(VtxCounts)  
         for i in range(VtxCounts):
@@ -89,18 +89,18 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
             self.progressBar.setValue(i)
         self.progressBar.setValue(0)
 
-        
+
 #-------------------------------------------------------------------------------------------------
-    
+
     def on_CBX_weightValue_editingFinished(self):
         value = self.CBX_weightValue.value()
         self.SLD_weightValue.setValue(value * 1000)
 
-        
+
     def on_SLD_weightValue_valueChanged(self, value):
         self.CBX_weightValue.setValue(value / 1000.0)
-    
-    
+
+
     def getId(self):
         ids = []
         for vtx in mc.ls(sl=True, fl=True):
@@ -108,8 +108,8 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
                 continue
             ids.append(int(re.search('(?<=\[)\d+(?=\])', vtx).group()))
         return ids
-            
-    
+
+
     def on_btn_addWeights_clicked(self, args=None):
         if args==None:return
         bspNode       = str(self.LET_bsp.text())
@@ -118,8 +118,8 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
         for i in self.getId():
             ov = mc.getAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i))
             mc.setAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i), ov + value)
-    
-    
+
+
     def on_btn_minusWeights_clicked(self, args=None):
         if args==None:return
         bspNode       = str(self.LET_bsp.text())
@@ -128,8 +128,8 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
         for i in self.getId():
             ov = mc.getAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i))
             mc.setAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i), ov - value)
-        
-    
+
+
     def on_btn_floodWeights_clicked(self, args=None):
         if args==None:return
         bspNode       = str(self.LET_bsp.text())

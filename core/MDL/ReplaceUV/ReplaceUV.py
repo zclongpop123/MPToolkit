@@ -30,20 +30,20 @@ class ListModel(QtCore.QAbstractListModel):
         self.beginRemoveRows(QtCore.QModelIndex(), 0, self.rowCount())
         del self.__modelData[:]
         self.endRemoveRows()
-    
+
     def change(self, L=[]):
         self.beginInsertRows(QtCore.QModelIndex(), 0, self.rowCount())
         self.__modelData = L[:]
         self.endInsertRows()
-        
-        
+
+
 
 
 windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'replaceUV.ui'))
 class ReplaceUV(windowClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('replaceUVwindow'):return
-        
+
         super(ReplaceUV, self).__init__(parent)
         self.setupUi(self)
         #----------------
@@ -63,10 +63,10 @@ class ReplaceUV(windowClass, baseClass):
         self.let_filePath.setText(filePath[0])
 
 
-    
+
     def on_btn_replace_clicked(self, clicked=None):
         if clicked == None:return
-        
+
 
         polyGeometry = mc.ls(type='mesh')
         if not polyGeometry:
@@ -74,19 +74,19 @@ class ReplaceUV(windowClass, baseClass):
             return
         polyGeometry = (mc.listRelatives(polyGeometry, p=True))
         polyGeometry = dict.fromkeys(polyGeometry).keys()
-        
-        
+
+
         modelPath = str(self.let_filePath.text())
 
 
         #- refrence
         f = mc.file(modelPath, r=True, namespace='UV')
-        
+
         self.progressBar.setMaximum(len(polyGeometry))
         for i, geo in enumerate(polyGeometry):
             self.progressBar.setValue(i)
             self.btn_replace.setText('%d%%'%mathTool.setRange(0, len(polyGeometry), 0, 100, i))
-            
+
             realName = re.search('\w+$', geo).group()
             UVgeo    = 'UV:%s'%realName
             if not mc.objExists(UVgeo):
@@ -99,7 +99,7 @@ class ReplaceUV(windowClass, baseClass):
 
             #- delete history
             RemoveUVWasteNode.delUVTransferAttributesNode(geo)
-        
+
         self.progressBar.setMaximum(1)
         self.progressBar.setValue(0)
         self.btn_replace.setText('Replace')

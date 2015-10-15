@@ -92,17 +92,17 @@ def getPoleVectorPosition(Root, Mid, Tip):
     A = mc.xform(Root, q=True, ws=True, t=True)
     B = mc.xform(Mid, q=True, ws=True, t=True)
     C = mc.xform(Tip, q=True, ws=True, t=True)
-    
+
     AB = math.sqrt((A[0] - B[0]) ** 2 + (A[1] - B[1]) ** 2 + (A[2] - B[2]) ** 2)
     BC = math.sqrt((B[0] - C[0]) ** 2 + (B[1] - C[1]) ** 2 + (B[2] - C[2]) ** 2)
     AC = math.sqrt((A[0] - C[0]) ** 2 + (A[1] - C[1]) ** 2 + (A[2] - C[2]) ** 2)
-    
+
     AD = (AB ** 2 + AC ** 2 - BC**2 ) / (AC * 2)
     ADpr = AD / AC
-    
+
     D = ((C[0] - A[0]) * ADpr + A[0], (C[1] - A[1]) * ADpr + A[1], (C[2] - A[2]) * ADpr + A[2])
     BD = math.sqrt((B[0] - D[0]) ** 2 + (B[1] - D[1]) ** 2 + (B[2] - D[2]) ** 2)
     ScaleV = (AB + BC) / BD * 0.7
     VectorPosition = ((B[0] - D[0]) * ScaleV + D[0], (B[1] - D[1]) * ScaleV + D[1], (B[2] - D[2]) * ScaleV + D[2])
-    
+
     return VectorPosition

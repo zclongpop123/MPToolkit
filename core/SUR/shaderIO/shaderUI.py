@@ -16,8 +16,8 @@ class ShaderUI(windowClass, baseClass):
         super(ShaderUI, self).__init__(parent)
         self.setupUi(self)
         self.show()
-        
-    
+
+
     def on_btn_export_clicked(self, args=None):
         if args == None:return
         shaderCore.exportGeometryShader()

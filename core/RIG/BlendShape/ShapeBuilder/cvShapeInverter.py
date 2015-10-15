@@ -9,12 +9,12 @@ import math
 class cvShapeInverter(OpenMayaMPx.MPxDeformerNode):
     kPluginNodeName = "cvShapeInverter"
     kPluginNodeId = OpenMaya.MTypeId(0x00115805)
-    
+
     aMatrix = OpenMaya.MObject()
     aCorrectiveGeo = OpenMaya.MObject()
     aDeformedPoints = OpenMaya.MObject()
     aActivate = OpenMaya.MObject()
-    
+
     def __init__(self):
         OpenMayaMPx.MPxDeformerNode.__init__(self)
         self.__initialized = False
@@ -61,8 +61,8 @@ class cvShapeInverter(OpenMayaMPx.MPxDeformerNode):
             delta = correctivePoints[index] - self.__deformedPoints[index]
 
             if (math.fabs(delta.x) < 0.001
-                    and math.fabs(delta.y) < 0.001
-                    and math.fabs(delta.z) < 0.001):
+                and math.fabs(delta.y) < 0.001
+                and math.fabs(delta.z) < 0.001):
                 itGeo.next()
                 continue
             # end if
@@ -103,11 +103,11 @@ def initialize():
     mAttr = OpenMaya.MFnMatrixAttribute()
     tAttr = OpenMaya.MFnTypedAttribute()
     nAttr = OpenMaya.MFnNumericAttribute()
-    
+
     outputGeom = OpenMayaMPx.cvar.MPxDeformerNode_outputGeom
 
     cvShapeInverter.aActivate = nAttr.create('activate', 'activate',
-            OpenMaya.MFnNumericData.kBoolean)
+                                             OpenMaya.MFnNumericData.kBoolean)
     cvShapeInverter.addAttribute(cvShapeInverter.aActivate)
     cvShapeInverter.attributeAffects(cvShapeInverter.aActivate, outputGeom)
 
@@ -116,7 +116,7 @@ def initialize():
     cvShapeInverter.attributeAffects(cvShapeInverter.aCorrectiveGeo, outputGeom)
 
     cvShapeInverter.aDeformedPoints = tAttr.create('deformedPoints', 'dp',
-            OpenMaya.MFnData.kPointArray)
+                                                   OpenMaya.MFnData.kPointArray)
     cvShapeInverter.addAttribute(cvShapeInverter.aDeformedPoints)
 
     cvShapeInverter.aMatrix = mAttr.create('inversionMatrix', 'im')
@@ -124,12 +124,12 @@ def initialize():
     mAttr.setUsesArrayDataBuilder(True)
     cvShapeInverter.addAttribute(cvShapeInverter.aMatrix)
 # end initialize
-    
+
 
 def initializePlugin(mobject):
     plugin = OpenMayaMPx.MFnPlugin(mobject)
     plugin.registerNode(cvShapeInverter.kPluginNodeName, cvShapeInverter.kPluginNodeId, creator,
-            initialize, OpenMayaMPx.MPxNode.kDeformerNode)
+                        initialize, OpenMayaMPx.MPxNode.kDeformerNode)
 # end initializePlugin
 
 

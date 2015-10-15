@@ -46,10 +46,10 @@ def getLastVersion(path, fextension=None):
     get the last version..
     '''
     versions = getVersions(path, fextension) or [0]
-    
+
     lastVersion = max([int(v) for v in versions])
     lastVersion = string.zfill(lastVersion, VERSION_PRECISION)
-    
+
     return lastVersion
 
 

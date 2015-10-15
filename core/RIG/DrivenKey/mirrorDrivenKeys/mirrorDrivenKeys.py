@@ -13,10 +13,10 @@ def getDrivenKeyInfo(obj):
     attributes = mc.setDrivenKeyframe(obj, q=True, dn=True)
     if re.match('^No driven attributes', attributes[0]):
         return DrivenInfo
-    
+
     for attr in attributes:
         DrivenInfo.append((mc.setDrivenKeyframe(attr, q=True, dr=True), attr))
-        
+
     return DrivenInfo
 
 
@@ -31,31 +31,31 @@ def copyDrivenKeys(src, dsr, dsn, mirror=1):
         if not mc.attributeQuery(attribute, n=obj, ex=True):
             print 'Error -> attributes  %s  was not Exists...'%arg
             return
-    
+
     mc.delete(mc.keyframe(dsn, q=True, n=True))
-    
+
     driverValues = mc.keyframe(src, q=True, fc=True)
     drivenValues = mc.keyframe(src, q=True, vc=True)
     for drv, dnv in zip(driverValues, drivenValues):
         mc.setDrivenKeyframe(dsn, cd=dsr, dv=drv, v=dnv * mirror)
-    
-    
 
-    
+
+
+
 windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'mirrorDrivenKeys.ui'))
 class MirrorDrivenKeysUI(windowClass, baseClass):
 
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('mirrorDrivenkeysWindow'):
             return
-        
+
         super(MirrorDrivenKeysUI, self).__init__(parent)
         self.setupUi(self)
         self.show()
         #----------------------------------------------------------------
         self.__SrcOBJ = None
         self.__DstOBJ = None
-        
+
         self.__model_SrcDriver = ListModel()
         self.__model_SrcDriven = ListModel()
         self.__model_DstDriver = ListModel()
@@ -66,43 +66,43 @@ class MirrorDrivenKeysUI(windowClass, baseClass):
         self.ListView_DstDriver.setModel(self.__model_DstDriver)
         self.ListView_DstDriven.setModel(self.__model_DstDriven)
         #----------------------------------------------------------------
-        
+
     def on_ListView_SrcDriver_pressed(self, index):
         self.__refreshView(self.ListView_SrcDriver, index, self.ListView_SrcDriver.verticalScrollBar())
-        
+
     def on_ListView_SrcDriven_pressed(self, index):
         self.__refreshView(self.ListView_SrcDriven, index, self.ListView_SrcDriven.verticalScrollBar())
-        
+
     def on_ListView_DstDriver_pressed(self, index):
         self.__refreshView(self.ListView_DstDriver, index, self.ListView_DstDriver.verticalScrollBar())
-        
+
     def on_ListView_DstDriven_pressed(self, index):
         self.__refreshView(self.ListView_DstDriven, index, self.ListView_DstDriven.verticalScrollBar())
-        
-    
+
+
     def __refreshView(self, view, index, scroll):
         views = (self.ListView_SrcDriver,
                  self.ListView_SrcDriven,
                  self.ListView_DstDriver,
                  self.ListView_DstDriven)
-        
+
         for v in views:
             if v == view:continue
             v.setCurrentIndex(index)
-            
+
             vScroll = v.verticalScrollBar()
-            
+
             Value    = float(scroll.value())
             OldMax   = scroll.maximum()
             OldMin   = max(scroll.minimum(), 1)
             Max      = vScroll.maximum()
             Min      = vScroll.minimum()
             OutValue = math.ceil(Min + (((Value-OldMin)/(OldMax-OldMin)) * (Max-Min)))
-            
+
             vScroll.setValue(OutValue)
-    
-    
-    
+
+
+
     def on_actionLoad_Src_triggered(self, args=None):
         if args == None:return
         self.__model_SrcDriver.clear()
@@ -145,15 +145,15 @@ class MirrorDrivenKeysUI(windowClass, baseClass):
                 CurrentView = c
                 break
         if CurrentView == None:return
-        
+
         selectIndexs = [index.row() for index in CurrentView.selectedIndexes()]
         selectIndexs.sort()
         selectIndexs.reverse()
-        
+
         for index in selectIndexs:
             self.__model_SrcDriven.removeRow(index)
             self.__model_SrcDriver.removeRow(index)
-            
+
             self.__model_DstDriven.removeRow(index)
             self.__model_DstDriver.removeRow(index)
 
@@ -161,16 +161,16 @@ class MirrorDrivenKeysUI(windowClass, baseClass):
 
     def on_LET_DriverInputA_editingFinished(self):
         self.changeData(self.__model_DstDriver, str(self.LET_DriverInputA.text()), str(self.LET_DriverInputB.text()))
-    
-    
+
+
     def on_LET_DriverInputB_editingFinished(self):
         self.changeData(self.__model_DstDriver, str(self.LET_DriverInputA.text()), str(self.LET_DriverInputB.text()))
-    
-    
+
+
     def on_LET_DrivenInputA_editingFinished(self):
         self.changeData(self.__model_DstDriven, str(self.LET_DrivenInputA.text()), str(self.LET_DrivenInputB.text()))
-    
-    
+
+
     def on_LET_DrivenInputB_editingFinished(self):
         self.changeData(self.__model_DstDriven, str(self.LET_DrivenInputA.text()), str(self.LET_DrivenInputB.text()))
 
@@ -179,7 +179,7 @@ class MirrorDrivenKeysUI(windowClass, baseClass):
         for i, d in enumerate(model.baseDatas()):
             value = d.replace(textA, textB)
             model.setData(model.index(i, 0), QtCore.QVariant(value), QtCore.Qt.EditRole)
-       
+
 
     @mayaTool.undo_decorator
     def on_btn_SetKeys_clicked(self, args=None):
@@ -187,7 +187,7 @@ class MirrorDrivenKeysUI(windowClass, baseClass):
         for src, dsr, dsn in zip(self.__model_SrcDriven.datas(), self.__model_DstDriver.datas(), self.__model_DstDriven.datas()):
             if src == dsn:
                 continue
-            
+
             if self.rdn_Copy.isChecked():
                 copyDrivenKeys(src, dsr, dsn)
             elif self.rdn_Mirror.isChecked():
@@ -205,57 +205,56 @@ class ListModel(QtCore.QAbstractListModel):
         super(ListModel, self).__init__(parent)
         self.__Base = L[:]
         self.__List = L[:]
-        
-    
+
+
     def rowCount(self, index):
         return len(self.__List)
-    
-    
+
+
     def data(self, index, role):
         if role == QtCore.Qt.DisplayRole or role == QtCore.Qt.EditRole:
             return self.__List[index.row()]
-        
+
         if role == QtCore.Qt.TextColorRole:
             if self.__List[index.row()] != self.__Base[index.row()]: 
                 return QtGui.QBrush(QtGui.QColor(222, 114, 122))    
-   
+
     def datas(self):
         return self.__List
-   
-   
+
+
     def baseDatas(self):
         return self.__Base
-    
+
 
     def flags(self, index):
         return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
-    
+
 
     def setData(self, index, value, role):
         if role == QtCore.Qt.EditRole:
             self.__List[index.row()] = str(value.toString())
-            
+
             self.dataChanged.emit(index, index)
             return True
-        
+
 
     def insertRow(self, value='0'):
         self.beginInsertRows(QtCore.QModelIndex(), len(self.__List), len(self.__List))
         self.__Base.append(value)
         self.__List.append(value)
         self.endInsertRows()
-    
-    
+
+
     def removeRow(self, row):
         self.beginRemoveRows(QtCore.QModelIndex(), row, row)
         self.__Base.pop(row)
         self.__List.pop(row)
         self.endRemoveRows()
-    
-    
+
+
     def clear(self):
         self.beginRemoveRows(QtCore.QModelIndex(), 0, len(self.__List))
         del self.__Base[:]
         del self.__List[:]
         self.endRemoveRows()
-        
