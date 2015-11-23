@@ -52,7 +52,7 @@ def invertBlendShapeWeights(model, blendShape, envelope=True):
     for i in range(VtxCounts):
         #  Increase the progress bar.
         if mc.progressBar(gMainProgressBar, q=True, ic=True): break
-        mc.progressBar(gMainProgressBar, e=True, s=1)    
+        mc.progressBar(gMainProgressBar, e=True, s=1)
 
         #- get Value, set Value
         if envelope:
@@ -85,7 +85,7 @@ def mirrorBlendShapeWeights(model, blendShape, envelope=True):
     for i in range(VtxCounts):
         #  Increase the progress bar.
         if mc.progressBar(gMainProgressBar, q=True, ic=True): break
-        mc.progressBar(gMainProgressBar, e=True, s=1)    
+        mc.progressBar(gMainProgressBar, e=True, s=1)
 
         #- get vtx positions
         posi = mc.xform('%s.vtx[%d]'%(model, i), q=True, t=True)
@@ -113,28 +113,28 @@ def mirrorBlendShapeWeights(model, blendShape, envelope=True):
 
 
 
-@mayaTool.undo_decorator    
+@mayaTool.undo_decorator
 def doMirrorBlendShapeWeights(envelope=True):
     selOBJ = mc.ls(sl=True)
     if len(selOBJ) == 0:return
 
     blendShapes = mayaTool.getHistoryByType(selOBJ[0], 'blendShape')
 
-    if len(blendShapes) == 0:return 
+    if len(blendShapes) == 0:return
 
     for bs in  blendShapes :
         mirrorBlendShapeWeights(selOBJ[0], bs, envelope)
 
 
 
-@mayaTool.undo_decorator    
+@mayaTool.undo_decorator
 def doInvertBlendShapeWeights(envelope=True):
     selOBJ = mc.ls(sl=True)
     if len(selOBJ) == 0:return
 
     blendShapes = mayaTool.getHistoryByType(selOBJ[0], 'blendShape')
 
-    if len(blendShapes) == 0:return 
+    if len(blendShapes) == 0:return
 
     for bs in  blendShapes :
         invertBlendShapeWeights(selOBJ[0], bs, envelope)

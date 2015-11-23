@@ -12,7 +12,7 @@ class ShaderUI(windowClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         #-----------------------------------------------------
         if uiTool.windowExists('shaderIOToolUI'):return
-        #-----------------------------------------------------   
+        #-----------------------------------------------------
         super(ShaderUI, self).__init__(parent)
         self.setupUi(self)
         self.show()
@@ -24,5 +24,5 @@ class ShaderUI(windowClass, baseClass):
 
 
     def on_btn_import_clicked(self, args=None):
-        if args == None:return    
+        if args == None:return
         shaderCore.importGeometryShader()

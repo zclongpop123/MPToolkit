@@ -11,7 +11,7 @@ WindowClass, BaseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 
 class BuildTargents(WindowClass, BaseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('buildTargentsWindow'):
-            return         
+            return
 
         super(BuildTargents, self).__init__(parent)
         self.setupUi(self)
@@ -45,7 +45,7 @@ class BuildTargents(WindowClass, BaseClass):
         geometry   = str(self.LET_Geometry.text())
         blendShape = str(self.LET_BlendShape.text())
         if not mc.objExists(geometry):return
-        if not mc.objExists(blendShape):return 
+        if not mc.objExists(blendShape):return
 
         #buildTargents(geometry, blendShape)
         targentList = mc.aliasAttr(blendShape, q=True)
@@ -77,7 +77,7 @@ class BuildTargents(WindowClass, BaseClass):
             self.progressName.setText(targent)
             #--------------------------------------------------------------
 
-        #- move 
+        #- move
         targents = targentList[::2]
         targents.sort()
         W = mc.getAttr('%s.bbmx'%geometry)[0][0] - mc.getAttr('%s.bbmn'%geometry)[0][0]
@@ -101,7 +101,7 @@ class BuildTargents(WindowClass, BaseClass):
 def buildTargent(blendShape, targentname, weightID):
     attributes = ' '.join(mc.listAttr(blendShape, m=True))
 
-    matched_attributes = re.findall('inputTarget\[0\].inputTargetGroup\[%s\].inputTargetItem\[\d{4}\]'%weightID, attributes)    
+    matched_attributes = re.findall('inputTarget\[0\].inputTargetGroup\[%s\].inputTargetItem\[\d{4}\]'%weightID, attributes)
     matched_attributes = [x for i, x in enumerate(matched_attributes) if x not in matched_attributes[:i]]
 
     for attr in matched_attributes:

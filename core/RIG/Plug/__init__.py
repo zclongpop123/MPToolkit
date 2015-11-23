@@ -10,13 +10,13 @@ class Mod_Class(object):
     def on_RIG_btn_NameTool_clicked(self, args=None):
         if args == None:return
         import nameTool.nameToolCmds
-        nameTool.nameToolCmds.NameUI()    
+        nameTool.nameToolCmds.NameUI()
 
 
     def on_RIG_btn_AddIKFKSwitch_clicked(self, args=None):
         if args==None:return
-        import IKFKSwitch 
-        IKFKSwitch .addIKFKSwitch()    
+        import IKFKSwitch
+        IKFKSwitch .addIKFKSwitch()
 
 
     def on_RIG_btn_MakeHeadStreatch_clicked(self, args=None):
@@ -28,4 +28,4 @@ class Mod_Class(object):
     def on_RIG_btn_AddPalmJoint_clicked(self, args=None):
         if args==None:return
         import addPalmBindJoint
-        addPalmBindJoint.addPalmBindJoint()    
+        addPalmBindJoint.addPalmBindJoint()

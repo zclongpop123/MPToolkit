@@ -11,4 +11,4 @@ class Sur_Class(object):
     def on_SUR_btn_ShaderIO_clicked(self, args=None):
         if args is None:return
         import shaderIO.shaderUI
-        shaderIO.shaderUI.ShaderUI()    
+        shaderIO.shaderUI.ShaderUI()

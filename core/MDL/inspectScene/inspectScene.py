@@ -43,13 +43,13 @@ class InspectSceneUI(UIwndClass, baseClass):
     def __initUI__(self):
         for con in self.groupBox.findChildren(uiTool.QtGui.QSpinBox):
             con.setValue(0)
-            con.setStyleSheet('')    
+            con.setStyleSheet('')
 
         for con in self.groupBox.findChildren(uiTool.QtGui.QPushButton):
             con.setEnabled(False)
             con.setText('')
             con.setIcon(ICON_DEFAULT)
-            con.setStyleSheet('QPushButton{border:none;}')            
+            con.setStyleSheet('QPushButton{border:none;}')
 
 
     def turnON(self, field, button, value=0):
@@ -88,7 +88,7 @@ class InspectSceneUI(UIwndClass, baseClass):
             if len(OBJList) > 0:
                 self.turnON(field, button, len(OBJList))
             else:
-                self.turnOFF(field, button, len(OBJList))       
+                self.turnOFF(field, button, len(OBJList))
 
         #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
         _readResult(self.DuplacatesNamesOBJ,  self.fld_duplicatesnames,   self.btn_duplicatesnames)

@@ -43,7 +43,7 @@ class ContextMenu(QtGui.QMenu):
         #- save Data
         f = open(os.path.join(getScriptPath(), 'ControlNameData.json'), 'w')
         json.dump(controlDT, f, indent=4)
-        f.close()     
+        f.close()
 
 
     def removeControls(self):
@@ -64,7 +64,7 @@ class ContextMenu(QtGui.QMenu):
         #- save Data
         f = open(os.path.join(getScriptPath(), 'ControlNameData.json'), 'w')
         json.dump(controlDT, f, indent=4)
-        f.close()  
+        f.close()
 
 
 
@@ -74,7 +74,7 @@ class ControlSelecterWnd(windowClass, baseClass):
     selectAdd = False
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('ControlSelecterWindow'):
-            return        
+            return
         super(ControlSelecterWnd, self).__init__(parent)
         self.setupUi(self)
         self.show()
@@ -84,7 +84,7 @@ class ControlSelecterWnd(windowClass, baseClass):
             btn.clicked.connect(self.SelectControl)
 
         for btn in self.groupBox_2.findChildren(QtGui.QPushButton):
-            btn.clicked.connect(self.SelectControl)    
+            btn.clicked.connect(self.SelectControl)
 
         #- refresh characters
         self.on_btn_loadCharacters_clicked(True)
@@ -111,7 +111,7 @@ class ControlSelecterWnd(windowClass, baseClass):
     def contextMenuEvent(self, Event):
         child = self.childAt(Event.pos())
         if not isinstance(child, QtGui.QPushButton):return
-        ContextMenu(Event.globalPos(), str(child.objectName()))        
+        ContextMenu(Event.globalPos(), str(child.objectName()))
 
 
 
@@ -153,7 +153,7 @@ class ControlSelecterWnd(windowClass, baseClass):
         btn.setChecked(True)
 
         # current character
-        nameSpace = str(self.cbx_CharacterList.currentText())  
+        nameSpace = str(self.cbx_CharacterList.currentText())
 
         # add namespace to character
         controls = self.CONTROL_NAME_DATA.get(str(btn.objectName()), [])
@@ -161,7 +161,7 @@ class ControlSelecterWnd(windowClass, baseClass):
             controls = [':'.join([nameSpace, x]) for x in controls]
 
         # obj is exists
-        controls = [ctr for ctr in controls if mc.objExists(ctr)] 
+        controls = [ctr for ctr in controls if mc.objExists(ctr)]
         # testing...
         RealControls = []
         for ctr in controls:
@@ -230,7 +230,7 @@ class ControlSelecterWnd(windowClass, baseClass):
         for control in self.getMembers('body_Ctrls'):
             if re.search('C_main[AB]_ctl_0$', control):
                 continue
-            Set(control)        
+            Set(control)
 
 
     @mayaTool.undo_decorator
@@ -239,7 +239,7 @@ class ControlSelecterWnd(windowClass, baseClass):
         for control in self.getMembers('facial_Ctrls'):
             if re.search('C_main[AB]_ctl_0$', control):
                 continue
-            Set(control)        
+            Set(control)
     #=========================================================================
 
 
@@ -275,11 +275,11 @@ TPOSE_DATA = {'Global': 0,
 
 def Set(control):
     attributes = mc.listAttr(control, k=True)
-    if attributes == None:return 
+    if attributes == None:return
     for attr in attributes:
         attributeFull = '%s.%s'%(control, attr)
         #- guess default attributes
-        defaultValue = 0 
+        defaultValue = 0
         if attr in TRANS_ATTRIBUTES:
             defaultValue = 0
         elif attr in SCACLE_AAARIBUTES:
@@ -309,7 +309,7 @@ def backtoTpose():
         mc.warning('you must select a control (any one) from a character !!!')
         return
 
-    #- list all of transforms 
+    #- list all of transforms
     transforms = ' '.join(mc.ls(type='transform'))
 
     #- list all of the controls

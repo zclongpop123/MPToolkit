@@ -71,7 +71,7 @@ def exportShader(filePath, shaders=list()):
     '''
     export shaders to ma file...
     '''
-    if not shaders:return 
+    if not shaders:return
 
     mc.select(shaders, ne=True)
     mc.file(filePath, es=True, pr=True, typ='mayaAscii')

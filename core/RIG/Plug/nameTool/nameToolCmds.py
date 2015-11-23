@@ -94,7 +94,7 @@ class NameUI(windowClass, baseClass):
     '''
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('foleyNameToolWindow'):
-            return 
+            return
 
         super(NameUI, self).__init__(parent)
         self.setupUi(self)
@@ -160,7 +160,7 @@ class NameUI(windowClass, baseClass):
         #- add Files
         for i, obj in enumerate(objects):
             self.__listModel.insertRow(i, obj)
-            self.__textMaxIndex = max(self.__textMaxIndex, len(obj))      
+            self.__textMaxIndex = max(self.__textMaxIndex, len(obj))
 
 
 
@@ -199,7 +199,7 @@ class NameUI(windowClass, baseClass):
             self.widget_buttonBox.setVisible(False)
             self.lab_Ps.setVisible(True)
             self.LET_inputB.setVisible(False)
-        else:   
+        else:
             self.widget_buttonBox.setVisible(False)
             self.lab_Ps.setVisible(False)
             self.LET_inputB.setVisible(True)
@@ -252,7 +252,7 @@ class NameUI(windowClass, baseClass):
             for i, obj in enumerate(mc.ls(sl=True)):
                 self.__listModel.insertRow(i, '%s'%obj)
                 self.__textMaxIndex = max(self.__textMaxIndex, len(obj))
-            return 
+            return
 
         dirPath = '%s'%self.LET_path.text()
         if not os.path.isdir(dirPath):return

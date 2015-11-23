@@ -18,7 +18,7 @@ class latticeWeightTool(object):
 
 
     def SaveWeight(self, Unuse):
-        FileFullpath = mc.fileDialog2(ff=("JSON Files (*.json)")) 
+        FileFullpath = mc.fileDialog2(ff=("JSON Files (*.json)"))
         if FileFullpath == None:return
         latice = mc.ls(sl=True)
         latticePT = mc.lattice(latice[0], q=True, dv=True)
@@ -38,7 +38,7 @@ class latticeWeightTool(object):
 
         f = open(FileFullpath[0], mode='w')
         json.dump(SkinUseDt, f, indent=2)
-        f.close()    
+        f.close()
         print '# Result:  weight was saved to  ->   %s ' %FileFullpath[0],
 
 
@@ -55,6 +55,6 @@ class latticeWeightTool(object):
         for pt, Weilist in fileDt['weightList'].iteritems():
             mc.skinPercent(skinNode, '%s.%s'%(latice[0], pt), tv=zip(fileDt['skinJoints'], Weilist))
 
-        print '#   Result:   weight Read Final! ',    
+        print '#   Result:   weight Read Final! ',
 #------------------------------------------------------------------------------------------------
 if __name__ == '__main__':latticeWeightTool()

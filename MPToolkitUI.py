@@ -14,7 +14,7 @@ class MPToolkitUI(windowClass, baseClass, MDL.Mdl_Class, SUR.Sur_Class, RIG.Rig_
     def __init__(self, parent=uiTool.getMayaWindow()):
         #-----------------------------------------------------
         if uiTool.windowExists('magicpowerToolKit'):return
-        #-----------------------------------------------------          
+        #-----------------------------------------------------
         super(MPToolkitUI, self).__init__(parent)
         self.setupUi(self)
         self.__initUI()

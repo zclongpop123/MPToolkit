@@ -1,6 +1,6 @@
-# 
+#
 # Copyright (c) 2011 Chad Vernon
-# 
+#
 
 ## @brief Inverts a shape through the deformation chain
 # @author Chad Vernon - chadvernon@gmail.com - www.chadvernon.com
@@ -120,12 +120,12 @@ def invert(base=None, corrective=None, progressBar=None, name=None):
         plugMatrixElement.setMObject(oMatrix)
 
         if progressBar:
-            progressBar.setValue(i) 
+            progressBar.setValue(i)
 
     if progressBar:
-        progressBar.setMinimum(0)  
+        progressBar.setMinimum(0)
         progressBar.setValue(0)
-        progressBar.setMaximum(1)    
+        progressBar.setMaximum(1)
     # end for
 
 

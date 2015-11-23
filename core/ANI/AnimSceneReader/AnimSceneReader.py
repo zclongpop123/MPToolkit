@@ -29,11 +29,11 @@ def getNewVersionFile(path):
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
 
-windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'AnimSceneReader.ui')) 
+windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'AnimSceneReader.ui'))
 class AnimSceneReaderUI(windowClass, baseClass):
     def __init__(self, parent=None):
         if uiTool.windowExists(parent, 'AnimFileReader'):
-            return                
+            return
         #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
         super(AnimSceneReaderUI, self).__init__(parent)
         self.setupUi(self)
@@ -41,22 +41,22 @@ class AnimSceneReaderUI(windowClass, baseClass):
         #-+
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icons', 'map_pin.png')))
-        self.btn_SelectPath.setIcon(icon)   
+        self.btn_SelectPath.setIcon(icon)
 
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icons', 'fork.png')))
-        self.btn_open.setIcon(icon)              
+        self.btn_open.setIcon(icon)
 
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icons', 'cloud_upload.png')))
-        self.btn_saveas.setIcon(icon)   
+        self.btn_saveas.setIcon(icon)
 
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(os.path.join(scriptTool.getScriptPath(), 'icons', 'blank_folder.png')))
-        self.btn_OpenFolder.setIcon(icon)      
+        self.btn_OpenFolder.setIcon(icon)
 
 
         icon = QtGui.QIcon()
@@ -100,7 +100,7 @@ class AnimSceneReaderUI(windowClass, baseClass):
 
     def on_CBX_Project_currentIndexChanged(self, index):
         if isinstance(index, int):return
-        self.__refreshFiles()    
+        self.__refreshFiles()
 
     def on_LET_type_editingFinished(self):
         self.__refreshFiles()
@@ -117,7 +117,7 @@ class AnimSceneReaderUI(windowClass, baseClass):
 
     def on_LET_workpublish_currentIndexChanged(self, index):
         if isinstance(index, int):return
-        self.__refreshFiles()    
+        self.__refreshFiles()
 
     def on_btn_SelectPath_clicked(self, args=None):
         if args==None:return
@@ -130,7 +130,7 @@ class AnimSceneReaderUI(windowClass, baseClass):
 
         self.LET_type.setText(  re.match('^[A-Za-z]+', baseDirName).group())
         self.LET_scene.setText( re.search('\d+(?=_)',  baseDirName).group())
-        self.LET_camera.setText(re.search('\d+$',      baseDirName).group())    
+        self.LET_camera.setText(re.search('\d+$',      baseDirName).group())
 
 
 
@@ -139,7 +139,7 @@ class AnimSceneReaderUI(windowClass, baseClass):
         self.__getValues()
 
         filePath = os.path.join(self.dir_path, self.V_file)
-        if not os.path.isfile(filePath):return 
+        if not os.path.isfile(filePath):return
 
         if mel.eval('saveChanges("file -f -new;");') == 0:return
         mc.file(filePath, o=True, f=True)

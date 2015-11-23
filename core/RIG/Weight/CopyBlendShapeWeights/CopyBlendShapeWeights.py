@@ -114,10 +114,10 @@ class CopyBlendShapeWeightsUI(windowClass, baseClass):
         if not mc.objExists(blendShape):
             return
         if mc.nodeType(blendShape) != 'blendShape':
-            return       
+            return
         attributeList = mayaTool.getBlendShapeAttributes(blendShape)
         attributeList.insert(0, 'envelope')
-        self.__dstModel.change(attributeList)        
+        self.__dstModel.change(attributeList)
 
 
     def on_btn_refresh_clicked(self, clicked=None):

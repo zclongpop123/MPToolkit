@@ -194,7 +194,7 @@ def makeRotateInfoForOneJoint(joint):
     #- comp connections
     #- 1
     mc.connectAttr('%s.tx'%BaseLoc, '%s.x'%grp)
-    mc.connectAttr('%s.ty'%BaseLoc, '%s.y'%grp)      
+    mc.connectAttr('%s.ty'%BaseLoc, '%s.y'%grp)
 
     #- 2
     Values = ('ypxp', 0.707,0.707), ('ypxn', -0.707,0.707), ('ynxp', 0.707,-0.707), ('ynxn', -0.707,-0.707)
@@ -203,7 +203,7 @@ def makeRotateInfoForOneJoint(joint):
         mc.setDrivenKeyframe('%s.i1'%node, cd='%s.tx'%BaseLoc, dv=0, v=0, itt='linear', ott='linear')
         mc.setDrivenKeyframe('%s.i1'%node, cd='%s.tx'%BaseLoc, dv=x, v=1, itt='linear', ott='linear')
         mc.setDrivenKeyframe('%s.i2'%node, cd='%s.ty'%BaseLoc, dv=0, v=0, itt='linear', ott='linear')
-        mc.setDrivenKeyframe('%s.i2'%node, cd='%s.ty'%BaseLoc, dv=y, v=1, itt='linear', ott='linear')        
+        mc.setDrivenKeyframe('%s.i2'%node, cd='%s.ty'%BaseLoc, dv=y, v=1, itt='linear', ott='linear')
         mc.connectAttr('%s.o'%node, '%s.%s'%(grp, Attr))
 
     #- 3

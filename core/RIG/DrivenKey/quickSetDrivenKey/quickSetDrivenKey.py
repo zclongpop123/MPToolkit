@@ -13,7 +13,7 @@ UIClass, BaseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'qui
 class QuickSetDrivenKey(UIClass, BaseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('quickSetDrivenKeywindow'):
-            return        
+            return
 
         super(QuickSetDrivenKey, self).__init__(parent)
         self.setupUi(self)
@@ -79,7 +79,7 @@ class QuickSetDrivenKey(UIClass, BaseClass):
         self._setKeyFrame(self.DriverValueSpinbox4, self.DrivenValueSpinbox4)
 
 
-    @mayaTool.undo_decorator    
+    @mayaTool.undo_decorator
     def on_actionKeyDriven5_triggered(self, args=None):
         if args==None:return
         self._setKeyFrame(self.DriverValueSpinbox5, self.DrivenValueSpinbox5)

@@ -49,7 +49,7 @@ class ReplaceUV(windowClass, baseClass):
         #----------------
         self.__listModel = ListModel()
         self.listView.setModel(self.__listModel)
-        #----------------        
+        #----------------
         self.show()
 
 

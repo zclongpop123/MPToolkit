@@ -84,7 +84,7 @@ class DynControl(UIClass, BaseClass):
 
             if i > 0:
                 mc.connectAttr('%s.%s'%(HairSystem[0], 'attractionScale[0]'),  '%s.%s'%(sysNode, 'attractionScale[0]'))
-                mc.connectAttr('%s.%s'%(HairSystem[0], 'attractionScale[1]'),  '%s.%s'%(sysNode, 'attractionScale[1]'))        
+                mc.connectAttr('%s.%s'%(HairSystem[0], 'attractionScale[1]'),  '%s.%s'%(sysNode, 'attractionScale[1]'))
 
         if mc.objExists('hairExp'):return
         mel.eval('source "%s"'%os.path.join(scriptTool.getScriptPath(), 'makeScriptNode.mel').replace('\\', '/'))
@@ -95,7 +95,7 @@ class DynControl(UIClass, BaseClass):
 
     def rigJoint(self, Jnt):
         Grp = [mc.group(em=True, name=Jnt.replace(Jnt.split('_')[-2], 'RO2'))]
-        NameL = ('RO1', 'ctl', 'cth', 'ctlG', 'ctlGrp') 
+        NameL = ('RO1', 'ctl', 'cth', 'ctlG', 'ctlGrp')
         for i in range(5):
             ControlName = Jnt.replace(Jnt.split('_')[-2], NameL[i])
             ControlName = ControlName.replace('ANIM_', '')

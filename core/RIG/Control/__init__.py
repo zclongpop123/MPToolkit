@@ -22,16 +22,16 @@ class Mod_Class(object):
     def on_RIG_btn_makeControlSet_clicked(self, args=None):
         if args == None:return
         import createControlSet.createControlSet
-        createControlSet.createControlSet.CreateControlSetUI()    
+        createControlSet.createControlSet.CreateControlSetUI()
 
 
     def on_RIG_btn_MirrorControlShape_clicked(self, args=None):
         if args==None:return
         import mirrorCtlShp.mirrorCtlShp
-        mirrorCtlShp.mirrorCtlShp.MirrorControlShp()    
+        mirrorCtlShp.mirrorCtlShp.MirrorControlShp()
 
 
     def on_RIG_btn_DynamicControl_clicked(self, args=None):
         if args==None:return
         import DynControl.DynControl
-        DynControl.DynControl.DynControl()    
+        DynControl.DynControl.DynControl()

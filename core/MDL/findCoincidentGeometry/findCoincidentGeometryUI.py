@@ -15,13 +15,13 @@ class findCoincidentGeometryUI(windowClass, baseClass):
         self.setupUi(self)
         self.show()
         #------------------
-    
+
     def on_pushButton_clicked(self, args=None):
         if args == None:return
         self.plainTextEdit.setPlainText('')
         self.plainTextEdit.appendPlainText('------ %s ------'%time.strftime("%H:%M:%S", time.localtime()))
-        
+
         geometrys = findCoincidentGeometry.findCoincidentGeometrys()
-        
+
         self.plainTextEdit.appendPlainText('\n'.join(geometrys))
         self.plainTextEdit.appendPlainText('------ %s ------'%time.strftime("%H:%M:%S", time.localtime()))

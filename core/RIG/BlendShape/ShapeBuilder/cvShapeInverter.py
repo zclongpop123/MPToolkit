@@ -1,6 +1,6 @@
-# 
+#
 # Copyright (c) 2011 Chad Vernon
-# 
+#
 
 import maya.OpenMayaMPx as OpenMayaMPx
 import maya.OpenMaya as OpenMaya

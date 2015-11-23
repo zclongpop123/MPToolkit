@@ -44,7 +44,7 @@ def setRange(oldMin, oldMax, newMin, newMax, value):
     '''
     0 - 10  --->  0 - 100
       |             |
-      5      ->     50   
+      5      ->     50
     '''
     result = ((float(value) - oldMin) / (oldMax - oldMin) * (newMax - newMin)) + newMin
     return result

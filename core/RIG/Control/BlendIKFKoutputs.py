@@ -7,7 +7,7 @@ class CompIKFKoutput(object):
         'leftLeg':('L_legKneeFk_ctl_0.rz', 'L_legKneeIk_jnt_0.rz', 'L_legFkIk_ctl_0'),
         'rightLeg':('R_legKneeFk_ctl_0.rz', 'R_legKneeIk_jnt_0.rz', 'R_legFkIk_ctl_0')
     }
-    part = ('leftArm','rightArm','leftLeg','rightLeg', 'leftAnkle', 'rightAnkle') 
+    part = ('leftArm','rightArm','leftLeg','rightLeg', 'leftAnkle', 'rightAnkle')
 
     def builde(self):
         if not mc.objExists(self.prefsNode):return
@@ -18,7 +18,7 @@ class CompIKFKoutput(object):
             mc.setAttr('%s.%s'%(self.prefsNode, compent), 0, l=True)
             #mc.addAttr(self.prefsNode, sn='%smax'%compent, nn='max', min=0, max=360, dv=100, k=True)
             #mc.addAttr(self.prefsNode, sn='%sBlend'%compent, nn='blend', min=0, max=1, dv=0, k=True)
-            mc.addAttr(self.prefsNode, sn='%soutput'%compent, nn='output', min=0, max=360, dv=0, k=True)            
+            mc.addAttr(self.prefsNode, sn='%soutput'%compent, nn='output', min=0, max=360, dv=0, k=True)
 
 
 

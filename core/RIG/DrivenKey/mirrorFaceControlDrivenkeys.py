@@ -31,7 +31,7 @@ def mirrorDrivenkeys(src, dst):
         if not mc.objExists(newDriven) or newDriven == driven:
             newDriven = driven.replace('left', 'right')
         if not mc.objExists(newDriven) or newDriven == driven:
-            newDriven = driven.replace('L', 'R')         
+            newDriven = driven.replace('L', 'R')
 
         if not mc.objExists(newDriver) or not mc.objExists(newDriven):
             continue

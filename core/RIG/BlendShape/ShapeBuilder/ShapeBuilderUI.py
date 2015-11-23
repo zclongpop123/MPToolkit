@@ -14,7 +14,7 @@ from mpUtils import uiTool, scriptTool, nameTool, mathTool, mayaTool
 def openCloseDeformer(model, value, ignal=()):
     for dfm in mayaTool.findDeformer(model):
         if mc.nodeType(dfm) in ignal:
-            continue 
+            continue
 
         if mc.getAttr('%s.en'%dfm, se=1):
             mc.setAttr('%s.en'%dfm, value)
@@ -59,7 +59,7 @@ shapeBaseClass, shapeWindowClass = uiTool.loadUi(os.path.join(scriptTool.getScri
 class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('ShapeBuilderWindow'):
-            return         
+            return
 
         super(ShapeBuilderUI, self).__init__(parent)
         self.setupUi(self)
@@ -119,7 +119,7 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
         self.__AttributeDT2 = dict(zip(self.__AttributeDT.values(), self.__AttributeDT.keys()))
         self.__IGTAttributeDT = mayaTool.getBlendShapeInputGeomTarget(sel[0])
         mesh = mc.blendShape(str(self.btn_blendShape.text()), q=True, g=True)
-        self.__baseModel = mc.listRelatives(mesh, p=True, path=True)[0]        
+        self.__baseModel = mc.listRelatives(mesh, p=True, path=True)[0]
         #--------------------------------
         self.__AttributeModel.clear()
 
@@ -173,7 +173,7 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
 
     #def on_btn_addBlendShape_clicked(self, clicked=None):
         #if clicked == None:return
-        #if len(self.listView_attributeList.selectedIndexes())==0:return 
+        #if len(self.listView_attributeList.selectedIndexes())==0:return
 
         #mc.setAttr('%s.en'%self.__blendShape, 0)
 
@@ -291,7 +291,7 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
     def on_btn_FixBsEnd_clicked(self, clicked=None):
         if clicked == None:return
 
-        #- 
+        #-
         selectIndexes = self.listView_attributeList.selectedIndexes()
         if len(selectIndexes) == 0:return
 
@@ -325,9 +325,9 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
     def on_btn_FixBsBsEnd_clicked(self, clicked=None):
         if clicked == None:return
 
-        #- 
+        #-
         selectIndexes = self.listView_attributeList.selectedIndexes()
-        if len(selectIndexes) == 0:return 
+        if len(selectIndexes) == 0:return
         selectAttr = self.__AttributeModel.data(selectIndexes[0], QtCore.Qt.DisplayRole)
 
         if not uiTool.warning('BlendShape\'s shape on attribute "%s" will be changed,\nand it can\'t to undo, \ncontinue? ?'%selectAttr):return
@@ -351,7 +351,7 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
 
             weightID = self.__AttributeDT2.get(selectAttr, None)
             TGTattr  = self.__IGTAttributeDT.get(weightID, None)
-            mc.connectAttr('%s.worldMesh[0]'%shape, '%s.%s'%(self.__blendShape, TGTattr), f=True)                 
+            mc.connectAttr('%s.worldMesh[0]'%shape, '%s.%s'%(self.__blendShape, TGTattr), f=True)
 
             mc.rename(midModel, selectAttr)
         mc.delete(self.__sculpmodel)
@@ -380,13 +380,13 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
         if clicked == None:return
 
         selectIndexes = self.listView_attributeList.selectedIndexes()
-        if len(selectIndexes) == 0:return 
+        if len(selectIndexes) == 0:return
         selectAttr = self.__AttributeModel.data(selectIndexes[0], QtCore.Qt.DisplayRole)
         if not uiTool.warning('BlendShape\'s shape on attribute "%s" will be changed,\nand it can\'t to undo, \ncontinue? ?'%selectAttr):return
 
         openCloseDeformer(self.__baseModel, 0, ('skinCluster'))
         newSculpModel = cvShapeInverterCmds.invert(self.__baseModel, self.__sculpmodel, self.progressBar)
-        mc.delete(newSculpModel, ch=True)        
+        mc.delete(newSculpModel, ch=True)
         openCloseDeformer(self.__baseModel, 1, ('skinCluster'))
 
         if mc.objExists(selectAttr):
@@ -398,11 +398,11 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
 
             weightID = self.__AttributeDT2.get(selectAttr, None)
             TGTattr  = self.__IGTAttributeDT.get(weightID, None)
-            mc.connectAttr('%s.worldMesh[0]'%shape, '%s.%s'%(self.__blendShape, TGTattr), f=True)                 
+            mc.connectAttr('%s.worldMesh[0]'%shape, '%s.%s'%(self.__blendShape, TGTattr), f=True)
 
             mc.rename(newSculpModel, selectAttr)
         mc.delete(self.__sculpmodel)
-        mc.delete(self.__tempmodel) 
+        mc.delete(self.__tempmodel)
 
 
 
@@ -410,7 +410,7 @@ class ShapeBuilderUI(shapeBaseClass, shapeWindowClass):
         self.__sculpmodel = mc.duplicate(self.__baseModel, n=nameTool.compileMayaObjectName('%s_Sculp'%self.__baseModel.split(':')[-1]))[0]
         for attr in ('tx', 'ty', 'tz','rx', 'ry', 'rz','sx', 'sy', 'sz'):
             mc.setAttr('%s.%s'%(self.__sculpmodel, attr), l=False, k=True, cb=True)
-        mc.move(mc.getAttr('%s.bbmx'%self.__baseModel)[0][0]  -  mc.getAttr('%s.bbmn'%self.__baseModel)[0][0], 0, 0, self.__sculpmodel, r=True)        
+        mc.move(mc.getAttr('%s.bbmx'%self.__baseModel)[0][0]  -  mc.getAttr('%s.bbmn'%self.__baseModel)[0][0], 0, 0, self.__sculpmodel, r=True)
 
 
 

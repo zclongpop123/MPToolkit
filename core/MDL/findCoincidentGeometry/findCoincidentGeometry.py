@@ -82,8 +82,8 @@ def findCoincidentGeometrys():
     Result = list()
     for k, v in geometryData.iteritems():
         if len(v) < 2:
-            continue   
+            continue
         Result.extend(v)
 
-    #- 
+    #-
     return Result

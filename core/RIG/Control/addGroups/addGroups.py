@@ -16,7 +16,7 @@ class AddGroup(windowClass, baseClass):
     '''
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('addGroupWindow'):
-            return 
+            return
 
         super(AddGroup, self).__init__(parent)
         self.setupUi(self)
@@ -34,7 +34,7 @@ class AddGroup(windowClass, baseClass):
 
 
     def on_btn_remove_clicked(self, args=None):
-        if args == None:return        
+        if args == None:return
         LineEdits = self.scrollArea.findChildren(QtGui.QLineEdit)
         if len(LineEdits) == 1:return
         LineEdits.pop().deleteLater()

@@ -31,7 +31,7 @@ bodywndClass, bodybaseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPat
 class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('blendShapeWeightsToolUI'):
-            return 
+            return
 
         super(BlendShapeWeightsUI, self).__init__(parent)
         self.setupUi(self)
@@ -45,7 +45,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
 
 
     def on_actionLoadSkinCluster_triggered(self, args=None):
-        if args == None:return 
+        if args == None:return
         selSkin = mc.ls(sl=True, type='skinCluster')
         if len(selSkin) < 1:
             return
@@ -58,7 +58,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
 
 
     def on_actionLoadBlendShape_triggered(self, args=None):
-        if args == None:return 
+        if args == None:return
         selBsp = mc.ls(sl=True, type='blendShape')
         if len(selBsp) < 1:
             return
@@ -81,7 +81,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
             return
 
         VtxCounts = mc.polyEvaluate(skinGeo, v=True)
-        self.progressBar.setMaximum(VtxCounts)  
+        self.progressBar.setMaximum(VtxCounts)
         for i in range(VtxCounts):
             value = mc.skinPercent(skinNode, '%s.vtx[%d]'%(skinGeo, i), q=True, v=True)
             Skin_weight_value = value[influcenIndex]
@@ -113,7 +113,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
     def on_btn_addWeights_clicked(self, args=None):
         if args==None:return
         bspNode       = str(self.LET_bsp.text())
-        bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row() 
+        bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row()
         value = self.CBX_weightValue.value()
         for i in self.getId():
             ov = mc.getAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i))
@@ -123,7 +123,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
     def on_btn_minusWeights_clicked(self, args=None):
         if args==None:return
         bspNode       = str(self.LET_bsp.text())
-        bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row() 
+        bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row()
         value = self.CBX_weightValue.value()
         for i in self.getId():
             ov = mc.getAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i))
@@ -133,7 +133,7 @@ class BlendShapeWeightsUI(bodywndClass, bodybaseClass):
     def on_btn_floodWeights_clicked(self, args=None):
         if args==None:return
         bspNode       = str(self.LET_bsp.text())
-        bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row() 
+        bspAttribute  = self.VIEW_bsp.selectedIndexes()[0].row()
         value = self.CBX_weightValue.value()
         for i in self.getId():
             mc.setAttr('%s.it[0].itg[%d].tw[%d]'%(bspNode, bspAttribute, i), value)

@@ -21,7 +21,7 @@ def makePathJoints(basePathCus, UppathCus, JointCounts=5, uValuezerotoone=False)
         mc.connectAttr(CusShape[0] + '.worldSpace[0]', motionpathNode + '.geometryPath')
         # connect motionpath node and object..
         for outAttr, inAttr in (('.rotateOrder', '.rotateOrder'),('.rotate', '.rotate'),('.allCoordinates', '.translate')):
-            mc.connectAttr(motionpathNode + outAttr, attactOBJ + inAttr)        
+            mc.connectAttr(motionpathNode + outAttr, attactOBJ + inAttr)
 
         # set Uvalue..
         mc.setAttr(motionpathNode + '.uValue', uValue)
@@ -37,7 +37,7 @@ def makePathJoints(basePathCus, UppathCus, JointCounts=5, uValuezerotoone=False)
         mc.setAttr(motionpathNode + '.worldUpType', 1)
         mc.connectAttr(UpperOBJ + '.worldMatrix[0]', motionpathNode + '.worldUpMatrix')
         mc.setAttr(motionpathNode + '.frontAxis', 0)
-        mc.setAttr(motionpathNode + '.upAxis', 2)        
+        mc.setAttr(motionpathNode + '.upAxis', 2)
 
     #--------------------------
     for i in range(JointCounts):
@@ -85,7 +85,7 @@ class makeAttachJoints(UIwndClass, baseClass):
         if len(SelOBJ) == 1:
             self.UpCusFLD.setText(SelOBJ[0])
         else:
-            print '> > > you must select onlyone curve ! ! !',    
+            print '> > > you must select onlyone curve ! ! !',
 
 
     def on_minmaxRDN_toggled(self, args=None):

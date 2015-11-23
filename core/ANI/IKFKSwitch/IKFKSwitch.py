@@ -20,7 +20,7 @@ Uiwnd, UiClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'IKFKSwi
 class IKFKSwitch(Uiwnd, UiClass):
     def __init__(self, parent =uiTool.getMayaWindow()):
         if uiTool.windowExists('DDikfkSwitchWindow'):
-            return    
+            return
 
         super(IKFKSwitch, self).__init__(parent)
         self.setupUi(self)
@@ -76,7 +76,7 @@ class IKFKSwitch(Uiwnd, UiClass):
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
 
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
-                mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)            
+                mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
 
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_armUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_armLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_armwrist_bnd_0'))
             mc.xform('%s:%s%s'%(namespace, side, '_armArmPole_ctl_0'), ws=True, t=pole_ps)
@@ -84,7 +84,7 @@ class IKFKSwitch(Uiwnd, UiClass):
             mc.setAttr('%s:%s_armIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)
 
 
-    @mayaTool.undo_decorator 
+    @mayaTool.undo_decorator
     def on_actionRightArmSwitch_triggered(self, args=None):
         if args==None:return
         namespace = str(self.CharacterComboBox.currentText())
@@ -120,7 +120,7 @@ class IKFKSwitch(Uiwnd, UiClass):
 
 
 
-    @mayaTool.undo_decorator    
+    @mayaTool.undo_decorator
     def on_actionLeftLegSwitch_triggered(self, args=None):
         if args==None:return
         namespace = str(self.CharacterComboBox.currentText())
@@ -149,15 +149,15 @@ class IKFKSwitch(Uiwnd, UiClass):
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
 
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
-                mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)      
+                mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
 
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_legUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legankle_bnd_0'))
-            mc.xform('%s:%s%s'%(namespace, side, '_legLegPole_ctl_0'), ws=True, t=pole_ps)       
+            mc.xform('%s:%s%s'%(namespace, side, '_legLegPole_ctl_0'), ws=True, t=pole_ps)
 
-            mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)     
+            mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)
 
 
-    @mayaTool.undo_decorator   
+    @mayaTool.undo_decorator
     def on_actionRightLegSwitch_triggered(self, args=None):
         if args==None:return
         namespace = str(self.CharacterComboBox.currentText())
@@ -177,7 +177,7 @@ class IKFKSwitch(Uiwnd, UiClass):
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
 
             pole_ps = mathTool.getPoleVectorPosition('%s:%s%s'%(namespace, side, '_legUpTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legLowTwist1_bnd_0'), '%s:%s%s'%(namespace, side,'_legankle_bnd_0'))
-            mc.xform('%s:%s%s'%(namespace, side, '_legLegPole_ctl_0'), ws=True, t=pole_ps)            
+            mc.xform('%s:%s%s'%(namespace, side, '_legLegPole_ctl_0'), ws=True, t=pole_ps)
 
             mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 1)
 
@@ -189,9 +189,9 @@ class IKFKSwitch(Uiwnd, UiClass):
                 ro = mc.xform('%s:%s%s'%(namespace, side, src), q=True, ws=True, ro=True)
 
                 mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, t=ps)
-                mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)      
+                mc.xform('%s:%s%s'%(namespace, side, dst), ws=True, ro=ro)
 
-            mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)     
+            mc.setAttr('%s:%s_legIKFKSwitch_ctl_0.FKIKBlend'%(namespace, side), 0)
 
 
     @mayaTool.undo_decorator
@@ -199,16 +199,16 @@ class IKFKSwitch(Uiwnd, UiClass):
         pass
 
 
-    @mayaTool.undo_decorator  
+    @mayaTool.undo_decorator
     def on_actionRightForeLegSwitch_triggered(self, args=None):
         pass
 
 
-    @mayaTool.undo_decorator    
+    @mayaTool.undo_decorator
     def on_actionLeftHindLegSwitch_triggered(self, args=None):
         pass
 
 
-    @mayaTool.undo_decorator   
+    @mayaTool.undo_decorator
     def on_actionRightHindLegSwitch_triggered(self, args=None):
         pass

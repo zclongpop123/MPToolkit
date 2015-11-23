@@ -49,7 +49,7 @@ class WeightsTool(windowClass, baseClass):
         self.VIW_Source.setModel(self.SOURCE_MODEL)
         self.VIW_Target.setModel(self.TARGET_MODEL)
 
-        self.LayoutComps = {'SOURCE_DEFORM_TYPE':(self.SOURCE_MODEL, self.LET_Source), 
+        self.LayoutComps = {'SOURCE_DEFORM_TYPE':(self.SOURCE_MODEL, self.LET_Source),
                             'TARGET_DEFORM_TYPE':(self.TARGET_MODEL, self.LET_Target)}
 
     def __setattr__(self, name, value):
@@ -65,7 +65,7 @@ class WeightsTool(windowClass, baseClass):
         self.SOURCE_GEOMETRY = str(text)
 
     def on_LET_Target_textChanged(self, text):
-        self.TARGET_GEOMETRY = str(text)    
+        self.TARGET_GEOMETRY = str(text)
 
     def on_btn_Copy_clicked(self, args=None):
         if args==None:return
@@ -101,7 +101,7 @@ class WeightsTool(windowClass, baseClass):
 
     def on_actionSourceSwitchToSkinCluster_triggered(self, args=None):
         if args==None:return
-        self.SOURCE_DEFORM_TYPE = 'skinCluster'        
+        self.SOURCE_DEFORM_TYPE = 'skinCluster'
 
     def on_actionTargetSwitchToCluster_triggered(self, args=None):
         if args==None:return

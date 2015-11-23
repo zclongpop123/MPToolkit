@@ -12,7 +12,7 @@ UIwndClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), '
 class quickSDK(UIwndClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('quickSDKwindow'):
-            return        
+            return
 
         super(quickSDK, self).__init__(parent)
         self.setupUi(self)
@@ -24,7 +24,7 @@ class quickSDK(UIwndClass, baseClass):
         if clicked==None:return
 
 
-        mainChannelBox = 'mainChannelBox'  
+        mainChannelBox = 'mainChannelBox'
         ChannelBoxs = mc.lsUI(typ='channelBox')
         ChannelBoxs.remove(mainChannelBox)
         if len(ChannelBoxs) == 0:return

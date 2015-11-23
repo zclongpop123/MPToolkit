@@ -106,7 +106,7 @@ class MirrorDrivenKeysUI(windowClass, baseClass):
     def on_actionLoad_Src_triggered(self, args=None):
         if args == None:return
         self.__model_SrcDriver.clear()
-        self.__model_SrcDriven.clear()     
+        self.__model_SrcDriven.clear()
         #-----------------------------
         sel = mc.ls(sl=True)
         if len(sel) == 0:return
@@ -216,8 +216,8 @@ class ListModel(QtCore.QAbstractListModel):
             return self.__List[index.row()]
 
         if role == QtCore.Qt.TextColorRole:
-            if self.__List[index.row()] != self.__Base[index.row()]: 
-                return QtGui.QBrush(QtGui.QColor(222, 114, 122))    
+            if self.__List[index.row()] != self.__Base[index.row()]:
+                return QtGui.QBrush(QtGui.QColor(222, 114, 122))
 
     def datas(self):
         return self.__List

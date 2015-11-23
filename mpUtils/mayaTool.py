@@ -108,7 +108,7 @@ def getHistoryByType(geometry, historyType):
     '''
     historys = maya.cmds.listHistory(geometry, pdo=True)
     typedHistory = maya.cmds.ls(historys, type=historyType)
-    typedHistory = {}.fromkeys(typedHistory).keys()    
+    typedHistory = {}.fromkeys(typedHistory).keys()
 
     return typedHistory
 
@@ -340,7 +340,7 @@ def findClosestPointOnCurve(curve, point=[0.0, 0.0, 0.0]):
     # Create the MFn class passing in the nurbsCurve.
     mfn = maya.OpenMaya.MFnNurbsCurve(crv.__apiobject__())
 
-    # Get the closest point on curve. 
+    # Get the closest point on curve.
     mfn.closestPoint(p, u_ptr, 0.001, maya.OpenMaya.MSpace.kWorld)
 
     return u_util.getDouble(u_ptr)
@@ -356,7 +356,7 @@ def findClosestPointOnCurve(curve, point=[0.0, 0.0, 0.0]):
 def getMeshPositionData(geometry, precision=12):
     '''
     Return mesh postions and vtx id in dict..
-    Exp:{ 
+    Exp:{
           0 : 'ffed2a41208043c0ca0a7141',
           1 : 'fff2a21fb3232142067cb2c1'
         }

@@ -1,5 +1,5 @@
 #=============================================
-# author: changlong.zang                     
+# author: changlong.zang
 #   mail: zclongpop@163.com
 #   date: Wed, 25 Jun 2014 14:43:02
 #=============================================
@@ -13,7 +13,7 @@ def getVersionsFiles(path, fextension=None):
     get versions and files..
     '''
     if not os.path.isdir(path):
-        return 
+        return
 
     files = os.listdir(path)
     for f in files:
@@ -116,7 +116,7 @@ def publishFile(src, dst):
     folder = os.path.dirname(dst)
     os.path.isdir(folder) or os.makedirs(folder)
 
-    shutil.copy(src, dst)        
+    shutil.copy(src, dst)
 
 
 

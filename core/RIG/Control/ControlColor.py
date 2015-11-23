@@ -8,7 +8,7 @@ import mpUtils.uiTool, PyQt4.QtGui, functools, maya.cmds
 BUTTON_COLOR_RGB_VALUE = (( 68, 68, 68),(  0,  0,  0),( 64, 64, 64),(128,128,128),(155,  0, 40),(  0,  4, 96),(  0,  0,255),(  0, 70, 25),
                           ( 38,  0, 67),(200,  0,200),(138, 72, 51),( 63, 35, 31),(153, 38,  0),(255,  0,  0),(  0,255,  0),(  0, 65,153),
                           (255,255,255),(255,255,  0),(100,220,255),( 67,255,163),(255,176,176),(228,172,121),(255,255, 99),(  0,153, 84),
-                          (161,105, 48),(159,161, 48),(104,161, 48),( 48,161, 93),( 48,161,161),( 48,103,161),(111, 48,161),(161, 48,105))   
+                          (161,105, 48),(159,161, 48),(104,161, 48),( 48,161, 93),( 48,161,161),( 48,103,161),(111, 48,161),(161, 48,105))
 
 class ColorWindow(PyQt4.QtGui.QMainWindow):
     windowName = 'DragonDreamsControlColorToolWindow'
@@ -46,7 +46,7 @@ class ColorWindow(PyQt4.QtGui.QMainWindow):
 
         for shp in maya.cmds.listRelatives(selectObjects, s=True, path=True) or []:
             if colorIndex == 0:
-                maya.cmds.setAttr(shp + '.ove', 0) 
+                maya.cmds.setAttr(shp + '.ove', 0)
             else:
                 maya.cmds.setAttr(shp + '.ove', 1)
                 maya.cmds.setAttr(shp + '.ovc', colorIndex)

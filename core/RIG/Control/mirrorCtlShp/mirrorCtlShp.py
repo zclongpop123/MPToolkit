@@ -10,7 +10,7 @@ from mpUtils import scriptTool, uiTool, mayaTool
 windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'mirrorCtlShp.ui'))
 class MirrorControlShp(windowClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
-        if uiTool.windowExists('mirrorControlShapeUI'):return 
+        if uiTool.windowExists('mirrorControlShapeUI'):return
         super(MirrorControlShp, self).__init__(parent)
         self.setupUi(self)
         self.show()
@@ -61,7 +61,7 @@ def mirrorControlShape(typ, source, targent, flipAxis):
         for a in 'trs':
             for b in 'xyz':
                 attr = a + b
-                mc.setAttr('%s.%s'%(Temp, attr), l=False, k=True, cb=False)  
+                mc.setAttr('%s.%s'%(Temp, attr), l=False, k=True, cb=False)
 
         #- close max min value controler
         mc.transformLimits(Temp.name(), etx=(0, 0),ety=(0, 0),etz=(0, 0),erx=(0, 0),ery=(0, 0),erz=(0, 0))

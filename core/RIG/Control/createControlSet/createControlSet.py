@@ -12,7 +12,7 @@ windowClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 
 class CreateControlSetUI(windowClass, baseClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('makeControlSetUI'):
-            return 
+            return
         super(CreateControlSetUI, self).__init__(parent)
         self.setupUi(self)
         self.show()
@@ -59,7 +59,7 @@ class CreateControlSetUI(windowClass, baseClass):
         if not mc.objExists(name):return
         selObj = mc.ls(sl=True)
         if selObj == []:return
-        mc.sets(selObj, remove=name)        
+        mc.sets(selObj, remove=name)
 
 
     def on_btn_AllRemoveMebbers_clicked(self, args=None):

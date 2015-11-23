@@ -16,7 +16,7 @@ INDEX_INDEX = 3
 def compileWindowsFileName(fullPath):
     '''
     build a not exists windows file name...
-    Exp:  
+    Exp:
         D:/text         -> D:/text(1)         -> D:/text(2)         -> D:/text(3) ... D:/text(n+1)
         E:/Document.txt -> E:/Document(1).txt -> E:/Document(2).txt -> E:/Document(3).txt ... E:/Document(n+1).txt
     '''
@@ -41,7 +41,7 @@ def compileWindowsFileName(fullPath):
 def compileMayaObjectName(objectName):
     '''
     build a not exists maya object name...
-    Exp: 
+    Exp:
         pCube  -> pCube1  -> pCube2  -> pCube3  -> pCube4 ...  pCuben+1
         pSphere -> pSphere1 -> pSphere2 -> pSphere3 -> pSphere4 ... pSpheren+1
     '''
@@ -51,7 +51,7 @@ def compileMayaObjectName(objectName):
     res = re.search('\d+$', objectName)
     if res:
         index = string.zfill(int(res.group()) + 1, len(res.group()))
-        result   = re.sub('\d+$', index, objectName)    
+        result   = re.sub('\d+$', index, objectName)
     else:
         result   = '%s1'%(objectName)
 
@@ -67,10 +67,10 @@ def SerializationObjectNames(objectList, nameFormat='Temp*', start=0, padding=3)
     nameFormat mutst have one " * "
     Exp:
             [pCulbe,  pCulbe1, pCulbe2, pCulbe3, pCulbe4] -> temp*
-        ->  [temp000, temp001, temp002, temp003, temp004] 
+        ->  [temp000, temp001, temp002, temp003, temp004]
 
             [pCulbe,  pCulbe1, pCulbe2, pCulbe3, pCulbe4] -> C_temp*_geo_0
-        ->  [C_temp000_geo_0, C_temp001_geo_0, C_temp002_geo_0, C_temp003_geo_0, C_temp004_geo_0] 
+        ->  [C_temp000_geo_0, C_temp001_geo_0, C_temp002_geo_0, C_temp003_geo_0, C_temp004_geo_0]
     '''
     if not isinstance(objectList, (list, tuple)):
         return

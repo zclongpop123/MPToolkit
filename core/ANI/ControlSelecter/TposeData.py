@@ -7,7 +7,7 @@ dic = {
 
     'chainStartEnveloppe':1,
 
-    'StarCurveAttract': 0, 
+    'StarCurveAttract': 0,
 
     'Lenght2':1,
 

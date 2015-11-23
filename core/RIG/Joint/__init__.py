@@ -9,12 +9,12 @@ class Mod_Class(object):
     '''
     def on_RIG_btn_MakeJointsOnCurve_clicked(self, args=None):
         if args==None:return
-        import makeAttachJoints.makeAttachJoints 
-        makeAttachJoints.makeAttachJoints.makeAttachJoints()    
+        import makeAttachJoints.makeAttachJoints
+        makeAttachJoints.makeAttachJoints.makeAttachJoints()
 
 
 
     def on_RIG_btn_makeRotateInfo_clicked(self, args=None):
         if args==None:return
         import makeRotateInfo
-        makeRotateInfo.makeRotateInfo()    
+        makeRotateInfo.makeRotateInfo()

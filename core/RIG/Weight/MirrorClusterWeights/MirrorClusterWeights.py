@@ -11,7 +11,7 @@ baseClass, windowClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 
 class ClusterWeightsUI(baseClass, windowClass):
     def __init__(self, parent=uiTool.getMayaWindow()):
         if uiTool.windowExists('MirrorClusterWindow'):
-            return             
+            return
         super(ClusterWeightsUI, self).__init__(parent)
         self.setupUi(self)
         self.show()

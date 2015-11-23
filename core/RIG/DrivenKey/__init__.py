@@ -22,10 +22,10 @@ class Mod_Class(object):
     def on_RIG_btn_QuickSDKA_clicked(self, args=None):
         if args==None:return
         import quickSDKTool.quickSDKTool
-        quickSDKTool.quickSDKTool.quickSDK()    
-    
-    
+        quickSDKTool.quickSDKTool.quickSDK()
+
+
     def on_RIG_btn_QuickSDKB_clicked(self, args=None):
         if args==None:return
-        import quickSetDrivenKey.quickSetDrivenKey 
-        quickSetDrivenKey.quickSetDrivenKey.QuickSetDrivenKey()    
+        import quickSetDrivenKey.quickSetDrivenKey
+        quickSetDrivenKey.quickSetDrivenKey.QuickSetDrivenKey()
