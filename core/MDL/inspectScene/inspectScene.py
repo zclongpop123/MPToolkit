@@ -3,8 +3,9 @@
 #   mail: zclongpop@163.com
 #   date: Fri, 24 Oct 2014 10:45:39
 #========================================
-import string, re, os.path
+import string, re, os.path, checkingModels
 import maya.cmds as mc
+import maya.OpenMaya as OpenMaya
 from mpUtils import scriptTool, uiTool
 #--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
@@ -24,6 +25,7 @@ SEARCH_ICON = uiTool.QtGui.QIcon(os.path.join(scriptTool.getScriptPath(), 'icon'
 
 
 UIwndClass, baseClass = uiTool.loadUi(os.path.join(scriptTool.getScriptPath(), 'inspectScene.ui'))
+
 class InspectSceneUI(UIwndClass, baseClass):
 
     def __init__(self, parent=uiTool.getMayaWindow()):
@@ -76,175 +78,70 @@ class InspectSceneUI(UIwndClass, baseClass):
 
     def on_btn_InspectScene_clicked(self, args=None):
         if args == None:return
-        self.DuplacatesNamesOBJ  = inspectDuplicatesNames()
-        self.defaultNameOBJ      = inpectDefaultName()
-        self.NoFreeGeometeys     = inspectGeometryAttributes()
-        self.pivotErrorGeometrys = inspectPivot()
-        self.DuplicatesShapesOBJ = insepectDuplicatesShapes()
-        self.vertexErrorOBJ      = inspectVertex()
-        self.hierarchyErrorOBJ   = inspectHierarchyError()
+        self.DuplacatesNamesOBJ  = checkingModels.checkingDuplicatesNames()
+        self.defaultNameOBJ      = checkingModels.checkingDefaultName()
+        self.NoFreeGeometeys     = checkingModels.checkingAttributes()
+        self.pivotErrorGeometrys = checkingModels.checkingCenterPoints()
+        self.DuplicatesShapesOBJ = checkingModels.checkingDuplacatesShape()
+        self.vertexErrorOBJ      = checkingModels.checkingVertex()
+        self.hierarchyErrorOBJ   = checkingModels.checkingHiearachy()
+        self.historyErrorOBJ     = checkingModels.checkingHistory()
         #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-        def _readResult(OBJList, field, button):
-            if len(OBJList) > 0:
-                self.turnON(field, button, len(OBJList))
+        def _readResult(mSelectionList, field, button):
+            length = mSelectionList.length()
+            if length > 0:
+                self.turnON(field, button, length)
             else:
-                self.turnOFF(field, button, len(OBJList))
+                self.turnOFF(field, button, 0)
 
         #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-        _readResult(self.DuplacatesNamesOBJ,  self.fld_duplicatesnames,   self.btn_duplicatesnames)
-        _readResult(self.defaultNameOBJ,      self.fld_defaultName,       self.btn_defaultName)
-        _readResult(self.NoFreeGeometeys,     self.fld_noFreezeGeometeys, self.btn_unFreezeGeometeys)
-        _readResult(self.pivotErrorGeometrys, self.fld_pivotError,        self.btn_pivotError)
-        _readResult(self.DuplicatesShapesOBJ, self.fld_duplicatesShapes,  self.btn_duplicatesShapes)
-        _readResult(self.vertexErrorOBJ,      self.fld_vertexError,       self.btn_vertexError)
-        _readResult(self.hierarchyErrorOBJ,   self.fld_hierarchyError,    self.btn_hierarchyError)
+        for lst, let, btn in ((self.DuplacatesNamesOBJ,  self.fld_duplicatesnames,   self.btn_duplicatesnames),
+                              (self.defaultNameOBJ,      self.fld_defaultName,       self.btn_defaultName),
+                              (self.NoFreeGeometeys,     self.fld_noFreezeGeometeys, self.btn_unFreezeGeometeys),
+                              (self.pivotErrorGeometrys, self.fld_pivotError,        self.btn_pivotError),
+                              (self.DuplicatesShapesOBJ, self.fld_duplicatesShapes,  self.btn_duplicatesShapes),
+                              (self.vertexErrorOBJ,      self.fld_vertexError,       self.btn_vertexError),
+                              (self.hierarchyErrorOBJ,   self.fld_hierarchyError,    self.btn_hierarchyError),
+                              (self.historyErrorOBJ,     self.fld_historyError,      self.btn_historyError)):
+            _readResult(lst, let, btn)
         #-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 
     def on_btn_duplicatesShapes_clicked(self, args=None):
         if args == None:return
-        mc.select(self.DuplicatesShapesOBJ)
+        OpenMaya.MGlobal.setActiveSelectionList(self.DuplicatesShapesOBJ)
 
 
     def on_btn_unFreezeGeometeys_clicked(self, args=None):
         if args == None:return
-        mc.select(self.NoFreeGeometeys)
+        OpenMaya.MGlobal.setActiveSelectionList(self.NoFreeGeometeys)
 
 
     def on_btn_duplicatesnames_clicked(self, args=None):
         if args == None:return
-        mc.select(self.DuplacatesNamesOBJ)
+        OpenMaya.MGlobal.setActiveSelectionList(self.DuplacatesNamesOBJ)
 
 
     def on_btn_pivotError_clicked(self, args=None):
         if args == None:return
-        mc.select(self.pivotErrorGeometrys)
+        OpenMaya.MGlobal.setActiveSelectionList(self.pivotErrorGeometrys)
+
 
     def on_btn_defaultName_clicked(self, args=None):
         if args == None:return
-        mc.select(self.defaultNameOBJ)
+        OpenMaya.MGlobal.setActiveSelectionList(self.defaultNameOBJ)
 
 
     def on_btn_vertexError_clicked(self, args=None):
         if args == None:return
-        mc.select(self.vertexErrorOBJ)
+        OpenMaya.MGlobal.setActiveSelectionList(self.vertexErrorOBJ)
 
 
     def on_btn_hierarchyError_clicked(self, args=None):
         if args == None:return
-        mc.select(self.hierarchyErrorOBJ)
+        OpenMaya.MGlobal.setActiveSelectionList(self.hierarchyErrorOBJ)
 
 
-
-
-
-
-
-def getGeometrys():
-    geometrys = mc.listRelatives(mc.ls(type=('mesh', 'nurbsSurface')), p=True, path=True) or list()
-    return geometrys
-
-
-
-def inspectDuplicatesNames():
-    transforms = string.join(mc.ls(type='transform'))
-    Results = re.findall('\S+\|+\S+', transforms)
-    return Results
-
-
-
-def inspectGeometryAttributes():
-    geometrys = getGeometrys()
-
-    Results = []
-    for geo in geometrys:
-        Values = []
-
-        for attr in ('tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz'):
-            Values.append(mc.getAttr('%s.%s'%(geo, attr)))
-
-        if sum(Values) == 3 and Values[-3:] == [1, 1, 1]:
-            continue
-
-        if geo in Results:
-            continue
-
-        Results.append(geo)
-
-    return Results
-
-
-
-def insepectDuplicatesShapes():
-    geometrys = getGeometrys()
-
-    Results = []
-    for geo in geometrys:
-        if len(mc.listRelatives(geo, s=True)) <= 1:
-            continue
-        if geo in Results:
-            continue
-        Results.append(geo)
-
-    return Results
-
-
-
-def inspectPivot():
-    geometrys = getGeometrys()
-
-    Results = []
-    for geo in geometrys:
-        pivots = mc.xform(geo, q=True, ws=True, rp=True) + mc.xform(geo, q=True, ws=True, sp=True)
-        if round(sum(pivots), 4) == 0:
-            continue
-        if geo in Results:
-            continue
-        Results.append(geo)
-
-    return Results
-
-
-
-
-def inpectDefaultName():
-    geometrys = ' '.join(getGeometrys())
-    Results = dict.fromkeys([x[0] for x in re.findall('(((?<=\s)|^)[a-zA-Z]+\d+((?=\s)|$))', geometrys)]).keys()
-    return Results
-
-
-
-
-def inspectHierarchyError():
-    geometrys = getGeometrys()
-
-    Results = list()
-    for geo in geometrys:
-        parent = mc.listRelatives(geo, p=True)
-        if not parent and geo not in Results:
-            Results.append(geo)
-
-    return Results
-
-
-
-
-def inspectVertex():
-    geometrys = getGeometrys()
-    pointType = {'nurbsSurface':'cv', 'mesh':'vtx'}
-
-    Results = list()
-    for geo in geometrys:
-        shpType = mc.nodeType(mc.listRelatives(geo, s=True, path=True)[0])
-
-        vertexValues = scriptTool.openMultiarray(mc.getAttr('%s.%s[:]'%(geo, pointType[shpType])))
-
-        if round(sum(vertexValues), 4) == 0:
-            continue
-
-        if geo in Results:
-            continue
-
-        Results.append(geo)
-
-    return Results
+    def on_btn_historyError_clicked(self, args=None):
+        if args == None:return
+        OpenMaya.MGlobal.setActiveSelectionList(self.historyErrorOBJ)
